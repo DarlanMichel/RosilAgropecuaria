@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'footer_controller.dart';
+part of 'cadastro_controller.dart';
 
 // **************************************************************************
 // InjectionGenerator
 // **************************************************************************
 
-final $FooterController = BindInject(
-  (i) => FooterController(),
+final $CadastroController = BindInject(
+  (i) => CadastroController(),
   singleton: true,
   lazy: true,
 );
@@ -18,8 +18,8 @@ final $FooterController = BindInject(
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$FooterController on _FooterControllerBase, Store {
-  final _$valueAtom = Atom(name: '_FooterControllerBase.value');
+mixin _$CadastroController on _CadastroControllerBase, Store {
+  final _$valueAtom = Atom(name: '_CadastroControllerBase.value');
 
   @override
   int get value {
@@ -34,17 +34,17 @@ mixin _$FooterController on _FooterControllerBase, Store {
     });
   }
 
-  final _$_FooterControllerBaseActionController =
-      ActionController(name: '_FooterControllerBase');
+  final _$_CadastroControllerBaseActionController =
+      ActionController(name: '_CadastroControllerBase');
 
   @override
   void increment() {
-    final _$actionInfo = _$_FooterControllerBaseActionController.startAction(
-        name: '_FooterControllerBase.increment');
+    final _$actionInfo = _$_CadastroControllerBaseActionController.startAction(
+        name: '_CadastroControllerBase.increment');
     try {
       return super.increment();
     } finally {
-      _$_FooterControllerBaseActionController.endAction(_$actionInfo);
+      _$_CadastroControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

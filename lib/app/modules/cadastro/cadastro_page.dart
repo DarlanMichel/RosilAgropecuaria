@@ -1,17 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'login_controller.dart';
+import 'cadastro_controller.dart';
 
-class LoginPage extends StatefulWidget {
+class CadastroPage extends StatefulWidget {
   final String title;
-  const LoginPage({Key key, this.title = "Login"}) : super(key: key);
+  const CadastroPage({Key key, this.title = "Cadastro"}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _CadastroPageState createState() => _CadastroPageState();
 }
 
-class _LoginPageState extends ModularState<LoginPage, LoginController> {
+class _CadastroPageState
+    extends ModularState<CadastroPage, CadastroController> {
   //use 'controller' variable to access controller
 
   @override
@@ -44,20 +44,20 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   Align(
                     alignment: Alignment.topCenter,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Image.asset(
-                        'images/Logo Rosil.png',
-                        fit: BoxFit.fill,
-                        width: 200,
-                      )
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Image.asset(
+                          'images/Logo Rosil.png',
+                          fit: BoxFit.fill,
+                          width: 200,
+                        )
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 30, left: 30, top: 10, bottom: 10),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'seuemail@email.com',
-                        labelText: 'E-mail'
+                          hintText: 'seuemail@email.com',
+                          labelText: 'E-mail'
                       ),
                     ),
                   ),
@@ -71,16 +71,13 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(right: 30, top: 10, bottom: 40),
-                      child: Text(
-                        'Esqueceu a Senha?',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(context).primaryColor),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 30, left: 30, top: 10, bottom: 10),
+                    child: TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          hintText: '****',
+                          labelText: 'Repita a Senha'
                       ),
                     ),
                   ),
@@ -92,14 +89,14 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       padding: EdgeInsets.only(right: 30),
                       child: RaisedButton(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(30),
                         ),
                         onPressed: () {
                           Modular.to.pushReplacementNamed('/home');
                         },
                         color: Colors.orange,
                         child: Text(
-                          "Entrar",
+                          "Cadastrar",
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
@@ -109,16 +106,16 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     alignment: Alignment.centerRight,
                     child: Padding(
                       padding:
-                          const EdgeInsets.only(right: 30, top: 20),
+                      const EdgeInsets.only(right: 30, top: 20),
                       child: GestureDetector(
                         child: Text(
-                          'Não tem uma conta? Cadastre-se!',
+                          'Já tem uma conta?',
                           style: TextStyle(
                               fontSize: 14,
                               color: Theme.of(context).primaryColor),
                         ),
                         onTap: (){
-                          Modular.to.pushNamed('/cadastro');
+                          Modular.to.pushNamed('/login');
                         },
                       ),
                     ),
