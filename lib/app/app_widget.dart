@@ -6,7 +6,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: Modular.navigatorKey,
-      title: 'Flutter Slidy',
+      title: 'Rosil Agropecuária',
       theme: ThemeData(
         primaryColor: Color.fromRGBO(40, 75, 140, 1),
         accentColor: Color.fromRGBO(101, 162, 188, 1),

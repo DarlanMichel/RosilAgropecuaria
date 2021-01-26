@@ -1,3 +1,6 @@
+import 'package:rosilagropecuaria/app/modules/produtos/produtos_page.dart';
+
+import 'modules/produtos/produtos_controller.dart';
 import 'package:rosilagropecuaria/app/modules/cadastro/cadastro_page.dart';
 import 'package:rosilagropecuaria/app/modules/login/login_page.dart';
 
@@ -15,6 +18,7 @@ import 'package:rosilagropecuaria/app/modules/login/login_module.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        $ProdutosController,
         $CadastroController,
         $LoginController,
         $HomeController,
@@ -27,9 +31,12 @@ class AppModule extends MainModule {
         ModularRouter('/home',
             child: (_, args) => HomePage(), transition: TransitionType.fadeIn),
         ModularRouter('/cadastro',
-            child: (_, args) => CadastroPage(), transition: TransitionType.fadeIn),
+            child: (_, args) => CadastroPage(),
+            transition: TransitionType.fadeIn),
         ModularRouter('/login',
             child: (_, args) => LoginPage(), transition: TransitionType.fadeIn),
+        ModularRouter('/produtos',
+            child: (_, args) => ProdutosPage(), transition: TransitionType.fadeIn),
       ];
 
   @override

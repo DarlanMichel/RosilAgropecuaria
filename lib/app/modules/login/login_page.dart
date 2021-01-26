@@ -19,6 +19,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
+        //resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).backgroundColor,
         body: Stack(
           children: <Widget>[
@@ -36,11 +37,14 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   fit: BoxFit.fill,
                   width: MediaQuery.of(context).size.width,
                 )),
-            Center(
+            SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: 40,
+                  ),
                   Align(
                     alignment: Alignment.topCenter,
                     child: Padding(
@@ -53,7 +57,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 30, left: 30, top: 10, bottom: 10),
+                    padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
                     child: TextFormField(
                       decoration: InputDecoration(
                         hintText: 'seuemail@email.com',
