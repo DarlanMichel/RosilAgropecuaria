@@ -1,101 +1,127 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'produtos_controller.dart';
+import 'favoritos_controller.dart';
 
-class ProdutosPage extends StatefulWidget {
+class FavoritosPage extends StatefulWidget {
   final String title;
-  const ProdutosPage({Key key, this.title = "Produtos"}) : super(key: key);
+  const FavoritosPage({Key key, this.title = "Favoritos"}) : super(key: key);
 
   @override
-  _ProdutosPageState createState() => _ProdutosPageState();
+  _FavoritosPageState createState() => _FavoritosPageState();
 }
 
-class _ProdutosPageState extends ModularState<ProdutosPage, ProdutosController> {
+class _FavoritosPageState
+    extends ModularState<FavoritosPage, FavoritosController> {
   bool favorite = false;
   bool carrinho = false;
-  String dropdownValue = 'Ordenar por';
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
-      ),
-      primary: Colors.orange, 
-    );
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
-          title: Text(
-            widget.title,
-            style: TextStyle(
-              fontSize: 22,
-              color: Colors.white
-            ),
-          ),
           centerTitle: true,
+          automaticallyImplyLeading: false,
+          backgroundColor: Theme.of(context).primaryColor,
+          title: Text(
+                  "Favoritos",
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.white
+                  ),
+                ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          color: Theme.of(context).primaryColor,
+          child: Container(
+            child: Padding(
+            padding: const EdgeInsets.only(right: 30, left: 30, top: 6, bottom: 6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Modular.to.pushNamed("/home");
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.home_outlined,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      Text(
+                        "Início",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.favorite,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      Text(
+                        "Favoritos",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Modular.to.pushNamed("/carrinho");
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.shopping_cart_outlined,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      Text(
+                        "Carrinho",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: (){
+                    Modular.to.pushNamed("/perfil");
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.person_outline_outlined,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      Text(
+                        "Perfil",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )),
         ),
         body: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 15, bottom: 15, right: 30, left: 30),
-              child: TextFormField(
-                decoration: InputDecoration(
-                    fillColor: Theme.of(context).primaryColor,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    hintText: 'Procure por seu produto',
-                    hintStyle: TextStyle(
-                        color: Theme.of(context).primaryColor
-                    ),
-                    prefixIcon: Icon(Icons.search)
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 15, left: 15),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: DropdownButton<String>(
-                      value: dropdownValue,
-                        icon: Icon(Icons.arrow_drop_down),
-                        iconSize: 20,
-                        items: <String>['Ordenar por', 'Ordem alfabética', 'Menor Preço', 'Maior Preço']
-                            .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                        onChanged: (String newValue) {
-                          setState(() {
-                            dropdownValue = newValue;
-                          });
-                        },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    child: ElevatedButton(
-                      style: buttonStyle,
-                      onPressed: () {},
-                      child: Text(
-                        "Filtrar",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          children: [
             Expanded(
-              child: ListView.builder(
+                child: ListView.builder(
                   padding: EdgeInsets.all(8.0),
                   scrollDirection: Axis.vertical,
                   itemCount: 10,
@@ -123,9 +149,9 @@ class _ProdutosPageState extends ModularState<ProdutosPage, ProdutosController> 
                                         'Descrição do produto',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Theme.of(context).primaryColor
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context).primaryColor
                                         ),
                                       ),
                                       SizedBox(height: 10,),

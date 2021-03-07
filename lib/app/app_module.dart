@@ -1,3 +1,12 @@
+import 'package:rosilagropecuaria/app/modules/carrinho/carrinho_page.dart';
+
+import 'modules/carrinho/carrinho_controller.dart';
+import 'package:rosilagropecuaria/app/modules/perfil/perfil_page.dart';
+
+import 'modules/perfil/perfil_controller.dart';
+import 'package:rosilagropecuaria/app/modules/favoritos/favoritos_page.dart';
+
+import 'modules/favoritos/favoritos_controller.dart';
 import 'package:rosilagropecuaria/app/modules/produtos/produtos_page.dart';
 
 import 'modules/produtos/produtos_controller.dart';
@@ -18,6 +27,9 @@ import 'package:rosilagropecuaria/app/modules/login/login_module.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        $CarrinhoController,
+        $PerfilController,
+        $FavoritosController,
         $ProdutosController,
         $CadastroController,
         $LoginController,
@@ -36,7 +48,17 @@ class AppModule extends MainModule {
         ModularRouter('/login',
             child: (_, args) => LoginPage(), transition: TransitionType.fadeIn),
         ModularRouter('/produtos',
-            child: (_, args) => ProdutosPage(), transition: TransitionType.fadeIn),
+            child: (_, args) => ProdutosPage(),
+            transition: TransitionType.fadeIn),
+        ModularRouter('/favoritos',
+            child: (_, args) => FavoritosPage(),
+            transition: TransitionType.fadeIn),
+        ModularRouter('/perfil',
+            child: (_, args) => PerfilPage(),
+            transition: TransitionType.fadeIn),
+        ModularRouter('/carrinho',
+            child: (_, args) => CarrinhoPage(),
+            transition: TransitionType.fadeIn),
       ];
 
   @override

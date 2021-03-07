@@ -23,46 +23,87 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           color: Theme.of(context).primaryColor,
           child: Container(
             child: Padding(
-              padding: const EdgeInsets.only(right: 30, left: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.home,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                      onPressed: null
+            padding: const EdgeInsets.only(right: 30, left: 30, top: 6, bottom: 6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.home,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      Text(
+                        "Início",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
                   ),
-                  IconButton(
-                      icon: Icon(
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Modular.to.pushNamed("/favoritos");
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
                         Icons.favorite_border_outlined,
                         color: Colors.white,
-                        size: 30,
+                        size: 20,
                       ),
-                      onPressed: null
+                      Text(
+                        "Favoritos",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
                   ),
-                  IconButton(
-                      icon: Icon(
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Modular.to.pushNamed("/carrinho");
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
                         Icons.shopping_cart_outlined,
                         color: Colors.white,
-                        size: 30,
+                        size: 20,
                       ),
-                      onPressed: null
+                      Text(
+                        "Carrinho",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
                   ),
-                  IconButton(
-                      icon: Icon(
+                ),
+                GestureDetector(
+                  onTap: (){
+                    Modular.to.pushNamed("/perfil");
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
                         Icons.person_outline_outlined,
                         color: Colors.white,
-                        size: 30,
+                        size: 20,
                       ),
-                      onPressed: null
+                      Text(
+                        "Perfil",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
                   ),
-                ],
-              ),
-            )
-          ),
+                ),
+              ],
+            ),
+          )),
         ),
         body: SingleChildScrollView(
           child: Column(

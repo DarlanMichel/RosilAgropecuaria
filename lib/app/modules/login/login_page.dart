@@ -16,9 +16,16 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      primary: Colors.orange, 
+    );
+
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         //resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).backgroundColor,
         body: Stack(
@@ -94,14 +101,11 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       width: 250,
                       height: 55,
                       padding: EdgeInsets.only(right: 30),
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                        ),
+                      child: ElevatedButton(
+                        style: buttonStyle,
                         onPressed: () {
                           Modular.to.pushReplacementNamed('/home');
                         },
-                        color: Colors.orange,
                         child: Text(
                           "Entrar",
                           style: TextStyle(fontSize: 18, color: Colors.white),
