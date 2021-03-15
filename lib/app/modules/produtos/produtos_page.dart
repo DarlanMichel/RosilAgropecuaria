@@ -19,7 +19,7 @@ class _ProdutosPageState extends ModularState<ProdutosPage, ProdutosController> 
   Widget build(BuildContext context) {
     final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(10),
       ),
       primary: Colors.orange, 
     );
@@ -45,7 +45,7 @@ class _ProdutosPageState extends ModularState<ProdutosPage, ProdutosController> 
                 decoration: InputDecoration(
                     fillColor: Theme.of(context).primaryColor,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     hintText: 'Procure por seu produto',
                     hintStyle: TextStyle(
@@ -60,22 +60,28 @@ class _ProdutosPageState extends ModularState<ProdutosPage, ProdutosController> 
               child: Row(
                 children: [
                   Expanded(
-                    child: DropdownButton<String>(
-                      value: dropdownValue,
-                        icon: Icon(Icons.arrow_drop_down),
-                        iconSize: 20,
-                        items: <String>['Ordenar por', 'Ordem alfabética', 'Menor Preço', 'Maior Preço']
-                            .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                        onChanged: (String newValue) {
-                          setState(() {
-                            dropdownValue = newValue;
-                          });
-                        },
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          color: Theme.of(context).primaryColor),
+                        value: dropdownValue,
+                          icon: Icon(Icons.arrow_drop_down, color: Theme.of(context).primaryColor,),
+                          iconSize: 20,
+                          items: <String>['Ordenar por', 'Ordem alfabética', 'Menor Preço', 'Maior Preço']
+                              .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropdownValue = newValue;
+                            });
+                          },
+                      ),
                     ),
                   ),
                   SizedBox(

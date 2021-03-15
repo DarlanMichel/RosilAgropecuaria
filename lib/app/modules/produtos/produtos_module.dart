@@ -2,16 +2,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/produtos/produtos_controller.dart';
 import 'package:rosilagropecuaria/app/modules/produtos/produtos_page.dart';
 
-class ProdutosModule extends ChildModule {
+class ProdutosModule extends Module {
   @override
-  List<Bind> get binds => [
+  final List<Bind> binds = [
     $ProdutosController
   ];
 
   @override
-  List<ModularRouter> get routers => [
-    ModularRouter(Modular.initialRoute, child: (_, args) => ProdutosPage()),
+  final List<ModularRoute> routes = [
+    ChildRoute(Modular.initialRoute, child: (_, args) => ProdutosPage()),
   ];
-
-  static Inject get to => Inject<ProdutosModule>.of();
 }

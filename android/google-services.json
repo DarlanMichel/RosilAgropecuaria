@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "145554613414",
+    "project_id": "rosilagropecuaria-a1fe4",
+    "storage_bucket": "rosilagropecuaria-a1fe4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145554613414:android:3699f5b67a0d384e708067",
+        "android_client_info": {
+          "package_name": "br.com.silva.darlan.rosilagropecuaria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145554613414-ft251t6m7f3gfnpbfd2nf632iketmdkn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVmnm_nWLDCCCJLxVaipMeRUMOtEjL9dY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145554613414-ft251t6m7f3gfnpbfd2nf632iketmdkn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

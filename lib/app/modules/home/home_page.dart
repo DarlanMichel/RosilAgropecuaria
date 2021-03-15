@@ -112,27 +112,26 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 height: 200,
                 color: Colors.orange,
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15, bottom: 15, right: 30, left: 30),
-                child: GestureDetector(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      fillColor: Theme.of(context).primaryColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      hintText: 'Procure por seu produto',
-                      hintStyle: TextStyle(
-                        color: Theme.of(context).primaryColor
-                      ),
-                      prefixIcon: Icon(Icons.search),
-                    ),
-                  ),
+              Container(
+                padding: const EdgeInsets.only(top: 15, bottom: 10, right: 20, left: 20),
+                child: TextFormField(
                   onTap: (){
                     Modular.to.pushNamed("/produtos");
                   },
+                  decoration: InputDecoration(
+                    fillColor: Theme.of(context).primaryColor,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    hintText: 'Procure por seu produto',
+                    hintStyle: TextStyle(
+                      color: Theme.of(context).primaryColor
+                    ),
+                    prefixIcon: Icon(Icons.search),
+                  ),
                 ),
               ),
+              Divider(),
               Container(
                 height: 150,
                 child: ListView.builder(
@@ -171,16 +170,18 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
                 ),
               ),
+              Divider(),
               SizedBox(height: 10,),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: Text(
-                    'Produtos em destaque',
+                    'Produtos em destaque:',
                     style: TextStyle(
-                      fontSize: 16,
-                      color: Theme.of(context).primaryColor
+                      fontSize: 18,
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold
                     ),
                   ),
                 ),

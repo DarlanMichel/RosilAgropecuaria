@@ -1,17 +1,25 @@
+import 'package:rosilagropecuaria/app/modules/perfil/minha_conta/minha_conta_controller.dart';
+import 'package:rosilagropecuaria/app/modules/perfil/sobre/sobre_controller.dart';
+import 'pedidos/pedidos_controller.dart';
+import 'endereco/endereco_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/perfil/perfil_controller.dart';
 import 'package:rosilagropecuaria/app/modules/perfil/perfil_page.dart';
 
-class PerfilModule extends ChildModule {
+class PerfilModule extends Module {
   @override
-  List<Bind> get binds => [
-    $PerfilController
+  final List<Bind> binds = [
+    $PedidosController, 
+    $EnderecoController, 
+    $PerfilController,
+    $SobreController,
+    $MinhaContaController
   ];
 
   @override
-  List<ModularRouter> get routers => [
-    ModularRouter(Modular.initialRoute, child: (_, args) => PerfilPage()),
+  final List<ModularRoute> routes = [
+    ChildRoute(Modular.initialRoute, child: (_, args) => PerfilPage()),
+    
   ];
 
-  static Inject get to => Inject<PerfilModule>.of();
 }

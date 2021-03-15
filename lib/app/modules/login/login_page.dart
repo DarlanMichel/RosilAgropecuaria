@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:rosilagropecuaria/app/modules/helpers/validators.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,13 +21,15 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
       ),
-      primary: Colors.orange, 
+      primary: Colors.orange,
     );
+
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passController = TextEditingController();
 
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        //resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).backgroundColor,
         body: Stack(
           children: <Widget>[
@@ -55,31 +58,44 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   Align(
                     alignment: Alignment.topCenter,
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Image.asset(
-                        'images/Logo Rosil.png',
-                        fit: BoxFit.fill,
-                        width: 200,
-                      )
-                    ),
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Image.asset(
+                          'images/Logo Rosil.png',
+                          fit: BoxFit.fill,
+                          width: 200,
+                        )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
+                    padding:
+                        const EdgeInsets.only(right: 30, left: 30, top: 10),
                     child: TextFormField(
+                      controller: emailController,
+                      enabled: !store.loading,
                       decoration: InputDecoration(
-                        hintText: 'seuemail@email.com',
-                        labelText: 'E-mail'
-                      ),
+                          hintText: 'seuemail@email.com', labelText: 'E-mail'),
+                      keyboardType: TextInputType.emailAddress,
+                      autocorrect: false,
+                      validator: (email) {
+                        if (!emailValid(email)) return 'E-mail inválido';
+                        return null;
+                      },
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 30, left: 30, top: 10, bottom: 10),
+                    padding: const EdgeInsets.only(
+                        right: 30, left: 30, top: 10, bottom: 10),
                     child: TextFormField(
                       obscureText: true,
-                      decoration: InputDecoration(
-                          hintText: '****',
-                          labelText: 'Senha'
-                      ),
+                      controller: passController,
+                      enabled: !store.loading,
+                      autocorrect: false,
+                      decoration:
+                          InputDecoration(hintText: '****', labelText: 'Senha'),
+                      validator: (pass){
+                        if(pass.isEmpty || pass.length < 6)
+                          return 'Senha inválida';
+                        return null;
+                      },
                     ),
                   ),
                   Align(
@@ -116,8 +132,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: Padding(
-                      padding:
-                          const EdgeInsets.only(right: 30, top: 20),
+                      padding: const EdgeInsets.only(right: 30, top: 20),
                       child: GestureDetector(
                         child: Text(
                           'Não tem uma conta? Cadastre-se!',
@@ -125,7 +140,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                               fontSize: 14,
                               color: Theme.of(context).primaryColor),
                         ),
-                        onTap: (){
+                        onTap: () {
                           Modular.to.pushNamed('/cadastro');
                         },
                       ),

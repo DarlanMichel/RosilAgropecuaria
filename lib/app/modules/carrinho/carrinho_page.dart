@@ -18,19 +18,19 @@ class _CarrinhoPageState
   @override
   Widget build(BuildContext context) {
     
-    String dropdownEnd = 'Selecione o Endereço';
-    String dropdownFpgto = 'Selecione a forma de Pagamento';
+    String dropdownEnd = 'Selecione o endereço';
+    String dropdownFpgto = 'Selecione a forma de pagamento';
 
     final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(10),
       ),
       primary: Colors.orange,
     );
 
     final ButtonStyle buttonStyle2 = ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(10),
       ),
       primary: Theme.of(context).accentColor,
     );
@@ -246,65 +246,96 @@ class _CarrinhoPageState
                       ),
                     );
                   }),
-              Container(
-                padding: EdgeInsets.only(right: 20, left: 20),
-                width: MediaQuery.of(context).size.width,
-                child: DropdownButton<String>(
-                  value: dropdownEnd,
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 20,
-                  items: <String>['Selecione o Endereço', 'Casa']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownEnd = newValue;
-                    });
-                  },
+              Card(
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                child: Container(
+                  padding: EdgeInsets.only(right: 20, left: 20),
+                  width: MediaQuery.of(context).size.width,
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: Theme.of(context).primaryColor),
+                      value: dropdownEnd,
+                      icon: Icon(Icons.arrow_drop_down, color: Theme.of(context).primaryColor,),
+                      iconSize: 20,
+                      items: <String>['Selecione o endereço', 'Casa']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          dropdownEnd = newValue;
+                        });
+                      },
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 8,
-              ),
-              Container(
-                padding: EdgeInsets.only(right: 20, left: 20),
-                width: MediaQuery.of(context).size.width,
-                child: DropdownButton<String>(
-                  value: dropdownFpgto,
-                  icon: Icon(Icons.arrow_drop_down),
-                  iconSize: 20,
-                  items: <String>[
-                    'Selecione a forma de Pagamento',
-                    'Dinheiro',
-                    'Cartão débito',
-                    'Cartão crédito',
-                    'Cheque',
-                    'Pix'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownFpgto = newValue;
-                    });
-                  },
+              Card(
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                child: Container(
+                  padding: EdgeInsets.only(right: 20, left: 20),
+                  width: MediaQuery.of(context).size.width,
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      isExpanded: true,
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        color: Theme.of(context).primaryColor),
+                      value: dropdownFpgto,
+                      icon: Icon(Icons.arrow_drop_down, color: Theme.of(context).primaryColor,),
+                      iconSize: 20,
+                      hint: Text('Selecione a forma de pagamento'),
+                      items: <String>[
+                        'Selecione a forma de pagamento',
+                        'Dinheiro',
+                        'Cartão débito',
+                        'Cartão crédito',
+                        'Cheque',
+                        'Pix'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (String newValue) {
+                        setState(() {
+                          dropdownFpgto = newValue;
+                        });
+                      },
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 8,
+              Card(
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                child: Container(
+                  padding: EdgeInsets.only(right: 20, left: 20),
+                  child: TextField(
+                    maxLines: 4,
+                    decoration: InputDecoration(
+                      fillColor: Theme.of(context).primaryColor,
+                      hintText: 'Observação',
+                      hintStyle: TextStyle(
+                        color: Theme.of(context).primaryColor
+                      ),
+                      border: InputBorder.none,
+                      
+                    ),
+                  ),
+                ),
               ),
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                 child: ExpansionTile(
                   title: Text(
-                    "Cupom de Desconto",
+                    "Cupom de desconto",
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
@@ -335,7 +366,7 @@ class _CarrinhoPageState
                               borderSide: BorderSide(
                                   color: Theme.of(context).primaryColor,
                                   width: 1)),
-                          hintText: "Digite seu Cupom",
+                          hintText: "Digite seu cupom",
                         ),
                         initialValue: "",
                         //onChanged: change,

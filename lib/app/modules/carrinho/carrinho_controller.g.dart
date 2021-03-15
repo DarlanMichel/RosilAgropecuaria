@@ -8,8 +8,8 @@ part of 'carrinho_controller.dart';
 
 final $CarrinhoController = BindInject(
   (i) => CarrinhoController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

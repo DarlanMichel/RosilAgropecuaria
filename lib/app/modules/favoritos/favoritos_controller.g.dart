@@ -8,8 +8,8 @@ part of 'favoritos_controller.dart';
 
 final $FavoritosController = BindInject(
   (i) => FavoritosController(),
-  singleton: true,
-  lazy: true,
+  isSingleton: true,
+  isLazy: true,
 );
 
 // **************************************************************************

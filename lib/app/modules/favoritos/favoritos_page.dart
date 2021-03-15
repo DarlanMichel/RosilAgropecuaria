@@ -20,18 +20,6 @@ class _FavoritosPageState
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
-        appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
-                  "Favoritos",
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white
-                  ),
-                ),
-        ),
         bottomNavigationBar: BottomAppBar(
           color: Theme.of(context).primaryColor,
           child: Container(

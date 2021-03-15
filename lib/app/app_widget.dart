@@ -10,7 +10,6 @@ class AppWidget extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      navigatorKey: Modular.navigatorKey,
       title: 'Rosil Agropecuária',
       theme: ThemeData(
         primaryColor: Color.fromRGBO(40, 75, 140, 1),
@@ -20,8 +19,7 @@ class AppWidget extends StatelessWidget {
         backgroundColor: Color.fromRGBO(233, 243, 253, 1.0),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      onGenerateRoute: Modular.generateRoute,
-    );
+      //initialRoute: '/',
+    ).modular();
   }
 }

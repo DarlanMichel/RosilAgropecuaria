@@ -104,186 +104,203 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
             ),
           )),
         ),
-        body: Column(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                  padding: const EdgeInsets.only(bottom: 10, top: 30),
-                  child: Image.asset(
-                    'images/Logo Rosil.png',
-                    fit: BoxFit.fill,
-                    width: 150,
-                  )),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                "Bem Vindo(a), Fulano dos Santos!",
-                style: TextStyle(
-                    color: Theme.of(context).primaryColor, fontSize: 16),
-              ),
-            ),
-            SizedBox(height: 20),
-            GestureDetector(
-              onTap: () {},
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topCenter,
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Icon(
-                          Icons.store_mall_directory_sharp,
-                          color: Theme.of(context).primaryColor,
-                          size: 26,
-                        ),
-                      ),
-                      Text(
-                        'Cadastrar endereço',
-                        style: TextStyle(
+                    padding: const EdgeInsets.only(bottom: 10, top: 30),
+                    child: Image.asset(
+                      'images/Logo Rosil.png',
+                      fit: BoxFit.fill,
+                      width: 150,
+                    )),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  "Bem Vindo(a), Fulano dos Santos!",
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor, fontSize: 16),
+                ),
+              ),
+              SizedBox(height: 20),
+              GestureDetector(
+                onTap: () {
+                  Modular.to.pushNamed("/enderecos");
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Icon(
+                            Icons.store_mall_directory_sharp,
                             color: Theme.of(context).primaryColor,
-                            fontSize: 18),
-                      )
-                    ],
+                            size: 26,
+                          ),
+                        ),
+                        Text(
+                          'Cadastrar endereço',
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 18),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 6,
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Icon(
-                          Icons.local_mall,
-                          color: Theme.of(context).primaryColor,
-                          size: 26,
-                        ),
-                      ),
-                      Text(
-                        'Pedidos',
-                        style: TextStyle(
+              SizedBox(
+                height: 6,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Modular.to.pushNamed("/pedidos");
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Icon(
+                            Icons.local_mall,
                             color: Theme.of(context).primaryColor,
-                            fontSize: 18),
-                      )
-                    ],
+                            size: 26,
+                          ),
+                        ),
+                        Text(
+                          'Pedidos',
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 18),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 6,
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Icon(
-                          Icons.person_pin_rounded,
-                          color: Theme.of(context).primaryColor,
-                          size: 26,
-                        ),
-                      ),
-                      Text(
-                        'Minha conta',
-                        style: TextStyle(
+              SizedBox(
+                height: 6,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Modular.to.pushNamed("/minhaconta");
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Icon(
+                            Icons.person_pin_rounded,
                             color: Theme.of(context).primaryColor,
-                            fontSize: 18),
-                      )
-                    ],
+                            size: 26,
+                          ),
+                        ),
+                        Text(
+                          'Minha conta',
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 18),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 6,
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Icon(
-                          Icons.pin_drop,
-                          color: Theme.of(context).primaryColor,
-                          size: 26,
-                        ),
-                      ),
-                      Text(
-                        'Sobre nós',
-                        style: TextStyle(
+              SizedBox(
+                height: 6,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Modular.to.pushNamed("/sobre");
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Icon(
+                            Icons.pin_drop,
                             color: Theme.of(context).primaryColor,
-                            fontSize: 18),
-                      )
-                    ],
+                            size: 26,
+                          ),
+                        ),
+                        Text(
+                          'Sobre nós',
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 18),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            Expanded(child: Container()),
-            GestureDetector(
-              onTap: () {},
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Icon(
-                          Icons.logout,
-                          color: Theme.of(context).primaryColor,
-                          size: 26,
-                        ),
+              Container(
+                height: MediaQuery.of(context).size.height/12,
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: GestureDetector(
+                  onTap: () {
+                    Modular.to.pushReplacementNamed("/login");
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: Icon(
+                              Icons.logout,
+                              color: Theme.of(context).primaryColor,
+                              size: 26,
+                            ),
+                          ),
+                          Text(
+                            'Sair',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: 18),
+                          )
+                        ],
                       ),
-                      Text(
-                        'Sair',
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 18),
-                      )
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 6,
-            ),
-          ],
+              SizedBox(
+                height: 6,
+              ),
+            ],
+          ),
         ),
       ),
     );
