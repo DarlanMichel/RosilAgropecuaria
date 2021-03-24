@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'perfil_controller.dart';
@@ -21,8 +22,9 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
         bottomNavigationBar: BottomAppBar(
           color: Theme.of(context).primaryColor,
           child: Container(
-            child: Padding(
-            padding: const EdgeInsets.only(right: 30, left: 30, top: 6, bottom: 6),
+              child: Padding(
+            padding:
+                const EdgeInsets.only(right: 30, left: 30, top: 6, bottom: 6),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -260,12 +262,13 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
                 ),
               ),
               Container(
-                height: MediaQuery.of(context).size.height/12,
+                height: MediaQuery.of(context).size.height / 12,
               ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: GestureDetector(
                   onTap: () {
+                    FirebaseAuth.instance.signOut();
                     Modular.to.pushReplacementNamed("/login");
                   },
                   child: Card(

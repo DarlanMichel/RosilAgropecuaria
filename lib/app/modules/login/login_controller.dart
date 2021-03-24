@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/firebase_errors.dart';
-import 'package:rosilagropecuaria/app/modules/model/user.dart';
+import 'package:rosilagropecuaria/app/modules/model/cliente.dart';
 
 part 'login_controller.g.dart';
 
@@ -11,9 +12,9 @@ part 'login_controller.g.dart';
 class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
-  @action
-  UserManager() {
-  _loadCurrentUser();
+  
+  _LoginControllerBase() {
+    _loadCurrentUser();
   }
 
   @observable
@@ -23,19 +24,16 @@ abstract class _LoginControllerBase with Store {
   @observable
   Cliente cliente;
   @observable
-  bool _loading = false;
+  bool loading = false;
 
-  bool get loading => _loading;
-
-  set loading(bool value) {
-    _loading = value;
-  }
+  @action
+  void setLoading(bool _loading) => loading = _loading;
 
   bool get isLoggedIn => cliente != null;
 
   @action
-  Future<void> signIn({User user, Function onFail, Function onSuccess}) async {
-    loading = true;
+  Future<void> signIn({Cliente cliente, Function onFail, Function onSuccess}) async {
+    setLoading(true);
     try {
       final UserCredential  result = await auth.signInWithEmailAndPassword(
           email: cliente.email, password: cliente.password);
@@ -46,12 +44,12 @@ abstract class _LoginControllerBase with Store {
     } on FirebaseAuthException catch (e){
       onFail(getErrorString(e.code));
     }
-    loading = false;
+    setLoading(false);
   }
 
   @action
   Future<void> _loadCurrentUser({User firebaseUser}) async {
-    final User currentUser = firebaseUser ?? await auth.currentUser;
+    final User currentUser = firebaseUser ?? auth.currentUser;
     if(currentUser != null){
       final DocumentSnapshot docUser = await firestore.collection('users')
           .doc(currentUser.uid).get();

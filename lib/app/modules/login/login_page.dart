@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/validators.dart';
+import 'package:rosilagropecuaria/app/modules/model/cliente.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,7 +15,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends ModularState<LoginPage, LoginController> {
-  //use 'controller' variable to access controller
+  static final formKey = GlobalKey<FormState>();
+  static final scaffoldKey = GlobalKey<ScaffoldState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +29,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
       primary: Colors.orange,
     );
 
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passController = TextEditingController();
-
     return SafeArea(
       child: Scaffold(
+        key: scaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).backgroundColor,
         body: Stack(
@@ -48,105 +51,139 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                   width: MediaQuery.of(context).size.width,
                 )),
             SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Image.asset(
-                          'images/Logo Rosil.png',
-                          fit: BoxFit.fill,
-                          width: 200,
-                        )),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(right: 30, left: 30, top: 10),
-                    child: TextFormField(
-                      controller: emailController,
-                      enabled: !store.loading,
-                      decoration: InputDecoration(
-                          hintText: 'seuemail@email.com', labelText: 'E-mail'),
-                      keyboardType: TextInputType.emailAddress,
-                      autocorrect: false,
-                      validator: (email) {
-                        if (!emailValid(email)) return 'E-mail inválido';
-                        return null;
-                      },
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 40,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        right: 30, left: 30, top: 10, bottom: 10),
-                    child: TextFormField(
-                      obscureText: true,
-                      controller: passController,
-                      enabled: !store.loading,
-                      autocorrect: false,
-                      decoration:
-                          InputDecoration(hintText: '****', labelText: 'Senha'),
-                      validator: (pass){
-                        if(pass.isEmpty || pass.length < 6)
-                          return 'Senha inválida';
-                        return null;
-                      },
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Image.asset(
+                            'images/Logo Rosil.png',
+                            fit: BoxFit.fill,
+                            width: 200,
+                          )),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
+                    Padding(
                       padding:
-                          const EdgeInsets.only(right: 30, top: 10, bottom: 40),
-                      child: Text(
-                        'Esqueceu a Senha?',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(context).primaryColor),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      width: 250,
-                      height: 55,
-                      padding: EdgeInsets.only(right: 30),
-                      child: ElevatedButton(
-                        style: buttonStyle,
-                        onPressed: () {
-                          Modular.to.pushReplacementNamed('/home');
+                          const EdgeInsets.only(right: 30, left: 30, top: 10),
+                      child: TextFormField(
+                        controller: emailController,
+                        enabled: !store.loading,
+                        decoration: InputDecoration(
+                            hintText: 'seuemail@email.com',
+                            labelText: 'E-mail'),
+                        keyboardType: TextInputType.emailAddress,
+                        autocorrect: false,
+                        validator: (email) {
+                          if (!emailValid(email)) return 'E-mail inválido';
+                          return null;
                         },
-                        child: Text(
-                          "Entrar",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 30, top: 20),
-                      child: GestureDetector(
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right: 30, left: 30, top: 10, bottom: 10),
+                      child: TextFormField(
+                        obscureText: true,
+                        controller: passController,
+                        enabled: !store.loading,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                            hintText: '****', labelText: 'Senha'),
+                        validator: (pass) {
+                          if (pass.isEmpty || pass.length < 6)
+                            return 'Senha inválida';
+                          return null;
+                        },
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            right: 30, top: 10, bottom: 40),
                         child: Text(
-                          'Não tem uma conta? Cadastre-se!',
+                          'Esqueceu a Senha?',
                           style: TextStyle(
                               fontSize: 14,
                               color: Theme.of(context).primaryColor),
                         ),
-                        onTap: () {
-                          Modular.to.pushNamed('/cadastro');
-                        },
                       ),
                     ),
-                  ),
-                ],
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        width: 250,
+                        height: 55,
+                        padding: EdgeInsets.only(right: 30),
+                        child: ElevatedButton(
+                            style: buttonStyle,
+                            onPressed: store.loading
+                                ? null
+                                : () {
+                                    if (formKey.currentState.validate()) {
+                                      store.signIn(
+                                          cliente: Cliente(
+                                              email: emailController.text,
+                                              password: passController.text),
+                                          onFail: (e) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                              content:
+                                                  Text('Falha ao entrar: $e'),
+                                              backgroundColor: Colors.red,
+                                              duration:
+                                                  const Duration(seconds: 5),
+                                            ));
+                                          },
+                                          onSuccess: () {
+                                            Modular.to
+                                                .pushReplacementNamed('/home');
+                                          });
+                                    }
+                                  },
+                            child: Observer(
+                              builder: (_) {
+                                return store.loading
+                                    ? CircularProgressIndicator(
+                                        valueColor: AlwaysStoppedAnimation(
+                                            Colors.white),
+                                      )
+                                    : Text(
+                                        "Entrar",
+                                        style: TextStyle(
+                                            fontSize: 18, color: Colors.white),
+                                      );
+                              },
+                            )),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 30, top: 20),
+                        child: GestureDetector(
+                          child: Text(
+                            'Não tem uma conta? Cadastre-se!',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Theme.of(context).primaryColor),
+                          ),
+                          onTap: () {
+                            Modular.to.pushNamed('/cadastro');
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           ],

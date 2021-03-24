@@ -64,27 +64,27 @@ mixin _$LoginController on _LoginControllerBase, Store {
     });
   }
 
-  final _$_loadingAtom = Atom(name: '_LoginControllerBase._loading');
+  final _$loadingAtom = Atom(name: '_LoginControllerBase.loading');
 
   @override
-  bool get _loading {
-    _$_loadingAtom.reportRead();
-    return super._loading;
+  bool get loading {
+    _$loadingAtom.reportRead();
+    return super.loading;
   }
 
   @override
-  set _loading(bool value) {
-    _$_loadingAtom.reportWrite(value, super._loading, () {
-      super._loading = value;
+  set loading(bool value) {
+    _$loadingAtom.reportWrite(value, super.loading, () {
+      super.loading = value;
     });
   }
 
   final _$signInAsyncAction = AsyncAction('_LoginControllerBase.signIn');
 
   @override
-  Future<void> signIn({User user, Function onFail, Function onSuccess}) {
-    return _$signInAsyncAction.run(
-        () => super.signIn(user: user, onFail: onFail, onSuccess: onSuccess));
+  Future<void> signIn({Cliente cliente, Function onFail, Function onSuccess}) {
+    return _$signInAsyncAction.run(() =>
+        super.signIn(cliente: cliente, onFail: onFail, onSuccess: onSuccess));
   }
 
   final _$_loadCurrentUserAsyncAction =
@@ -100,11 +100,11 @@ mixin _$LoginController on _LoginControllerBase, Store {
       ActionController(name: '_LoginControllerBase');
 
   @override
-  dynamic UserManager() {
+  void setLoading(bool _loading) {
     final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
-        name: '_LoginControllerBase.UserManager');
+        name: '_LoginControllerBase.setLoading');
     try {
-      return super.UserManager();
+      return super.setLoading(_loading);
     } finally {
       _$_LoginControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -115,7 +115,8 @@ mixin _$LoginController on _LoginControllerBase, Store {
     return '''
 auth: ${auth},
 firestore: ${firestore},
-cliente: ${cliente}
+cliente: ${cliente},
+loading: ${loading}
     ''';
   }
 }

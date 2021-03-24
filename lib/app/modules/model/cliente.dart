@@ -1,7 +1,6 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dart:io';
 
 class Cliente {
 
@@ -69,7 +68,7 @@ class Cliente {
     await tokensReference.doc(token).set({
       'token': token,
       'updatedAt': FieldValue.serverTimestamp(),
-      'platform': Platform.supportsTypedData,
+      'platform': Platform.operatingSystem,
     });
   }
 }

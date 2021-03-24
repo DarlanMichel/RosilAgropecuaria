@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:rosilagropecuaria/app/modules/helpers/validators.dart';
+import 'package:rosilagropecuaria/app/modules/model/cliente.dart';
 import 'cadastro_controller.dart';
 
 class CadastroPage extends StatefulWidget {
@@ -12,7 +15,8 @@ class CadastroPage extends StatefulWidget {
 
 class _CadastroPageState
     extends ModularState<CadastroPage, CadastroController> {
-  //use 'controller' variable to access controller
+  static final formKey = GlobalKey<FormState>();
+  static final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -20,117 +24,181 @@ class _CadastroPageState
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
       ),
-      primary: Colors.orange, 
+      primary: Colors.orange,
     );
+
+    final Cliente cliente = Cliente();
 
     return SafeArea(
       child: Scaffold(
+        key: scaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).backgroundColor,
-        body: Stack(
-          children: <Widget>[
-            Align(
-                alignment: Alignment.topCenter,
-                child: Image.asset(
-                  'images/Rectangle 1.png',
-                  fit: BoxFit.fill,
-                  width: MediaQuery.of(context).size.width,
-                )),
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: Image.asset(
-                  'images/Rectangle 3.png',
-                  fit: BoxFit.fill,
-                  width: MediaQuery.of(context).size.width,
-                )),
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Image.asset(
-                          'images/Logo Rosil.png',
-                          fit: BoxFit.fill,
-                          width: 200,
-                        )
+        body: Form(
+          key: formKey,
+          child: Stack(
+            children: <Widget>[
+              Align(
+                  alignment: Alignment.topCenter,
+                  child: Image.asset(
+                    'images/Rectangle 1.png',
+                    fit: BoxFit.fill,
+                    width: MediaQuery.of(context).size.width,
+                  )),
+              Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Image.asset(
+                    'images/Rectangle 3.png',
+                    fit: BoxFit.fill,
+                    width: MediaQuery.of(context).size.width,
+                  )),
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 40,
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: 'seuemail@email.com',
-                          labelText: 'E-mail'
-                      ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Image.asset(
+                            'images/Logo Rosil.png',
+                            fit: BoxFit.fill,
+                            width: 200,
+                          )),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
-                    child: TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          hintText: '****',
-                          labelText: 'Senha'
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 30, left: 30, top: 10, bottom: 10),
-                    child: TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          hintText: '****',
-                          labelText: 'Repita a Senha'
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      width: 250,
-                      height: 55,
-                      padding: EdgeInsets.only(right: 30),
-                      child: ElevatedButton(
-                        style: buttonStyle,
-                        onPressed: () {
-                          Modular.to.pushReplacementNamed('/home');
-                        },                        
-                        child: Text(
-                          "Cadastrar",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
+                    Padding(
                       padding:
-                      const EdgeInsets.only(right: 30, top: 20),
-                      child: GestureDetector(
-                        child: Text(
-                          'Já tem uma conta?',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Theme.of(context).primaryColor),
-                        ),
-                        onTap: (){
-                          Modular.to.pushNamed('/login');
+                          const EdgeInsets.only(right: 30, left: 30, top: 10),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: 'seuemail@email.com',
+                            labelText: 'E-mail'),
+                        enabled: !store.loading,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (email) {
+                          if (email.isEmpty)
+                            return 'Campo obrigatório';
+                          else if (!emailValid(email)) return 'E-mail inválido';
+                          return null;
                         },
+                        onSaved: (email) => cliente.email = email,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(right: 30, left: 30, top: 10),
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            hintText: '****', labelText: 'Senha'),
+                        enabled: !store.loading,
+                        validator: (pass) {
+                          if (pass.isEmpty)
+                            return 'Campo obrigatório';
+                          else if (pass.length < 6) return 'Senha muito curta';
+                          return null;
+                        },
+                        onSaved: (pass) => cliente.password = pass,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          right: 30, left: 30, top: 10, bottom: 10),
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            hintText: '****', labelText: 'Repita a Senha'),
+                        enabled: !store.loading,
+                        validator: (pass) {
+                          if (pass.isEmpty)
+                            return 'Campo obrigatório';
+                          else if (pass.length < 6) return 'Senha muito curta';
+                          return null;
+                        },
+                        onSaved: (pass) => cliente.confirmPassword = pass,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        width: 250,
+                        height: 55,
+                        padding: EdgeInsets.only(right: 30),
+                        child: ElevatedButton(
+                          style: buttonStyle,
+                          onPressed: store.loading
+                              ? null
+                              : () {
+                                  if (formKey.currentState.validate()) {
+                                    formKey.currentState.save();
+                                    if (cliente.password !=
+                                        cliente.confirmPassword) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                        content: Text('Senhas não coincidem!'),
+                                        backgroundColor: Colors.red,
+                                      ));
+                                      return;
+                                    }
+                                    store.signUp(
+                                        cliente: cliente,
+                                        onSuccess: () {
+                                          Modular.to
+                                              .pushReplacementNamed('/home');
+                                        },
+                                        onFail: (e) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content:
+                                                Text('Falha ao cadastrar: $e'),
+                                            backgroundColor: Colors.red,
+                                            duration:
+                                                const Duration(seconds: 5),
+                                          ));
+                                        });
+                                  }
+                                },
+                          child: Observer(builder: (_) {
+                            return store.loading
+                                ? CircularProgressIndicator(
+                                    valueColor:
+                                        AlwaysStoppedAnimation(Colors.white),
+                                  )
+                                : Text(
+                                    "Cadastrar",
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.white),
+                                  );
+                          }),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 30, top: 20),
+                        child: GestureDetector(
+                          child: Text(
+                            'Já tem uma conta?',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Theme.of(context).primaryColor),
+                          ),
+                          onTap: () {
+                            Modular.to.pushNamed('/login');
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
