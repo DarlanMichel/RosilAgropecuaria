@@ -16,7 +16,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends ModularState<LoginPage, LoginController> {
   static final formKey = GlobalKey<FormState>();
-  static final scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
 
@@ -31,7 +30,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
 
     return SafeArea(
       child: Scaffold(
-        key: scaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).backgroundColor,
         body: Stack(
@@ -75,7 +73,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                           const EdgeInsets.only(right: 30, left: 30, top: 10),
                       child: TextFormField(
                         controller: emailController,
-                        enabled: !store.loading,
+                        enabled: !controller.loading,
                         decoration: InputDecoration(
                             hintText: 'seuemail@email.com',
                             labelText: 'E-mail'),
@@ -93,7 +91,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       child: TextFormField(
                         obscureText: true,
                         controller: passController,
-                        enabled: !store.loading,
+                        enabled: !controller.loading,
                         autocorrect: false,
                         decoration: InputDecoration(
                             hintText: '****', labelText: 'Senha'),
@@ -125,11 +123,11 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                         padding: EdgeInsets.only(right: 30),
                         child: ElevatedButton(
                             style: buttonStyle,
-                            onPressed: store.loading
+                            onPressed: controller.loading
                                 ? null
                                 : () {
                                     if (formKey.currentState.validate()) {
-                                      store.signIn(
+                                      controller.signIn(
                                           cliente: Cliente(
                                               email: emailController.text,
                                               password: passController.text),
@@ -151,7 +149,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                   },
                             child: Observer(
                               builder: (_) {
-                                return store.loading
+                                return controller.loading
                                     ? CircularProgressIndicator(
                                         valueColor: AlwaysStoppedAnimation(
                                             Colors.white),

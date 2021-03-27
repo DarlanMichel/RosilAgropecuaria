@@ -16,7 +16,6 @@ class CadastroPage extends StatefulWidget {
 class _CadastroPageState
     extends ModularState<CadastroPage, CadastroController> {
   static final formKey = GlobalKey<FormState>();
-  static final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,6 @@ class _CadastroPageState
 
     return SafeArea(
       child: Scaffold(
-        key: scaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).backgroundColor,
         body: Form(
@@ -77,7 +75,7 @@ class _CadastroPageState
                         decoration: InputDecoration(
                             hintText: 'seuemail@email.com',
                             labelText: 'E-mail'),
-                        enabled: !store.loading,
+                        enabled: !controller.loading,
                         keyboardType: TextInputType.emailAddress,
                         validator: (email) {
                           if (email.isEmpty)
@@ -95,7 +93,7 @@ class _CadastroPageState
                         obscureText: true,
                         decoration: InputDecoration(
                             hintText: '****', labelText: 'Senha'),
-                        enabled: !store.loading,
+                        enabled: !controller.loading,
                         validator: (pass) {
                           if (pass.isEmpty)
                             return 'Campo obrigatório';
@@ -112,7 +110,7 @@ class _CadastroPageState
                         obscureText: true,
                         decoration: InputDecoration(
                             hintText: '****', labelText: 'Repita a Senha'),
-                        enabled: !store.loading,
+                        enabled: !controller.loading,
                         validator: (pass) {
                           if (pass.isEmpty)
                             return 'Campo obrigatório';
@@ -130,7 +128,7 @@ class _CadastroPageState
                         padding: EdgeInsets.only(right: 30),
                         child: ElevatedButton(
                           style: buttonStyle,
-                          onPressed: store.loading
+                          onPressed: controller.loading
                               ? null
                               : () {
                                   if (formKey.currentState.validate()) {
@@ -144,7 +142,7 @@ class _CadastroPageState
                                       ));
                                       return;
                                     }
-                                    store.signUp(
+                                    controller.signUp(
                                         cliente: cliente,
                                         onSuccess: () {
                                           Modular.to
@@ -163,7 +161,7 @@ class _CadastroPageState
                                   }
                                 },
                           child: Observer(builder: (_) {
-                            return store.loading
+                            return controller.loading
                                 ? CircularProgressIndicator(
                                     valueColor:
                                         AlwaysStoppedAnimation(Colors.white),

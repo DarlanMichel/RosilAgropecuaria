@@ -1,3 +1,5 @@
+import 'package:rosilagropecuaria/app/modules/login/login_controller.dart';
+import 'package:rosilagropecuaria/app/modules/login/login_module.dart';
 import 'package:rosilagropecuaria/app/modules/perfil/minha_conta/minha_conta_controller.dart';
 import 'package:rosilagropecuaria/app/modules/perfil/sobre/sobre_controller.dart';
 import 'pedidos/pedidos_controller.dart';
@@ -9,17 +11,19 @@ import 'package:rosilagropecuaria/app/modules/perfil/perfil_page.dart';
 class PerfilModule extends Module {
   @override
   final List<Bind> binds = [
-    $PedidosController, 
-    $EnderecoController, 
+    $PedidosController,
+    $EnderecoController,
     $PerfilController,
     $SobreController,
-    $MinhaContaController
+    $MinhaContaController,
+    $LoginController
   ];
 
   @override
   final List<ModularRoute> routes = [
     ChildRoute(Modular.initialRoute, child: (_, args) => PerfilPage()),
-    
+    ModuleRoute("/login",
+        module: LoginModule(), transition: TransitionType.fadeIn)
   ];
 
 }
