@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'perfil_controller.dart';
 
 class PerfilPage extends StatefulWidget {
@@ -267,7 +268,10 @@ class _PerfilPageState extends ModularState<PerfilPage, PerfilController> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    SharedPreferences shared =
+                        await SharedPreferences.getInstance();
+                    shared.remove('email');
                     FirebaseAuth.instance.signOut();
                     Modular.to.pushReplacementNamed("/login");
                   },

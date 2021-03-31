@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rosilagropecuaria/app/app_controller.dart';
 import 'package:rosilagropecuaria/app/modules/cadastro/cadastro_controller.dart';
 import 'package:rosilagropecuaria/app/modules/cadastro/cadastro_module.dart';
@@ -20,12 +21,20 @@ import 'package:rosilagropecuaria/app/modules/produtos/produtos_controller.dart'
 import 'package:rosilagropecuaria/app/modules/produtos/produtos_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/login/login_module.dart';
+import 'package:rosilagropecuaria/app/modules/splash/splash_controller.dart';
+import 'package:rosilagropecuaria/app/modules/splash/splash_module.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'modules/perfil/endereco/endereco_page.dart';
 import 'modules/perfil/minha_conta/minha_conta_page.dart';
 import 'modules/perfil/pedidos/pedidos_page.dart';
 import 'modules/perfil/sobre/sobre_page.dart';
 
 class AppModule extends Module {
+
+  final SharedPreferences shared;
+
+  AppModule(this.shared);
+
   @override
   final List<Bind> binds = [
         $CarrinhoController,
@@ -40,12 +49,15 @@ class AppModule extends Module {
         $MinhaContaController,
         $PedidosController,
         $SobreController,
-        $CadEndController
+        $CadEndController,
+        Bind((i) => SplashController(i.get<FirebaseAuth>())),
+        
+        Bind.instance(FirebaseAuth.instance),
   ];
 
   @override
   final List<ModularRoute> routes = [
-        ModuleRoute(Modular.initialRoute, module: LoginModule()),
+        ModuleRoute(Modular.initialRoute, module: SplashModule()),
         ModuleRoute('/home', module: HomeModule(), transition: TransitionType.fadeIn),
         ModuleRoute('/cadastro', module:  CadastroModule(), transition: TransitionType.fadeIn),
         ModuleRoute('/login', module: LoginModule(), transition: TransitionType.fadeIn),

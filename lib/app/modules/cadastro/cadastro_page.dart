@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/validators.dart';
 import 'package:rosilagropecuaria/app/modules/model/cliente.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'cadastro_controller.dart';
 
 class CadastroPage extends StatefulWidget {
@@ -144,7 +145,12 @@ class _CadastroPageState
                                     }
                                     controller.signUp(
                                         cliente: cliente,
-                                        onSuccess: () {
+                                        onSuccess: () async{
+                                          SharedPreferences shared =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            shared.setString('email',
+                                                '${cliente.email}');
                                           Modular.to
                                               .pushReplacementNamed('/home');
                                         },

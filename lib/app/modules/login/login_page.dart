@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/validators.dart';
 import 'package:rosilagropecuaria/app/modules/model/cliente.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
@@ -141,7 +142,12 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                                   const Duration(seconds: 5),
                                             ));
                                           },
-                                          onSuccess: () {
+                                          onSuccess: () async {
+                                            SharedPreferences shared =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            shared.setString('email',
+                                                '${emailController.text}');
                                             Modular.to
                                                 .pushReplacementNamed('/home');
                                           });
