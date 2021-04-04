@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/validators.dart';
-import 'package:rosilagropecuaria/app/modules/model/cliente.dart';
+import 'package:rosilagropecuaria/app/modules/model/cliente_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'cadastro_controller.dart';
 
@@ -27,7 +27,7 @@ class _CadastroPageState
       primary: Colors.orange,
     );
 
-    final Cliente cliente = Cliente();
+    final ClienteModel cliente = ClienteModel();
 
     return SafeArea(
       child: Scaffold(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:rosilagropecuaria/app/modules/model/categoria_model.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,8 +24,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         bottomNavigationBar: BottomAppBar(
           color: Theme.of(context).primaryColor,
           child: Container(
-            child: Padding(
-            padding: const EdgeInsets.only(right: 30, left: 30, top: 6, bottom: 6),
+              child: Padding(
+            padding:
+                const EdgeInsets.only(right: 30, left: 30, top: 6, bottom: 6),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -83,7 +86,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Modular.to.pushNamed("/perfil");
                   },
                   child: Column(
@@ -113,9 +116,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 color: Colors.orange,
               ),
               Container(
-                padding: const EdgeInsets.only(top: 15, bottom: 10, right: 20, left: 20),
+                padding: const EdgeInsets.only(
+                    top: 15, bottom: 10, right: 20, left: 20),
                 child: TextFormField(
-                  onTap: (){
+                  onTap: () {
                     Modular.to.pushNamed("/produtos");
                   },
                   decoration: InputDecoration(
@@ -124,9 +128,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     hintText: 'Procure por seu produto',
-                    hintStyle: TextStyle(
-                      color: Theme.of(context).primaryColor
-                    ),
+                    hintStyle: TextStyle(color: Theme.of(context).primaryColor),
                     prefixIcon: Icon(Icons.search),
                   ),
                 ),
@@ -134,44 +136,70 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               Divider(),
               Container(
                 height: 150,
-                child: ListView.builder(
-                  padding: EdgeInsets.all(8.0),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (_, index){
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 10, left: 10),
-                      child: Column(
-                        children: [
-                          GestureDetector(
-                            child: Container(
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.orange,
-                              ),
-                            ),
-                            onTap: (){
-                              Modular.to.pushNamed("/produtos");
-                            },
-                          ),
-                          SizedBox(height: 10,),
-                          Text("Pet",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Theme.of(context).primaryColor
-                            ),
-                          )
-                        ],
+                child: Observer(builder: (_) {
+                  if (controller.categoriaList.hasError) {
+                    return Center(
+                      child: TextButton(
+                        onPressed: controller.getCategoria(),
+                        child: Text("Recarregar"),
                       ),
                     );
                   }
 
-                ),
+                  if (controller.categoriaList.data == null) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  List<CategoriaModel> listCat = controller.categoriaList.data;
+
+                  return ListView.builder(
+                      padding: EdgeInsets.all(8.0),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: listCat.length,
+                      itemBuilder: (_, index) {
+                        CategoriaModel catModel = listCat[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 10, left: 10),
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  child: Image.network(
+                                    catModel.foto,
+                                    height: MediaQuery.of(context).size.height/2,
+                                    width: MediaQuery.of(context).size.width/2,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                onTap: () {
+                                  Modular.to.pushNamed("/produtos");
+                                },
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                catModel.descricao,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Theme.of(context).primaryColor),
+                              )
+                            ],
+                          ),
+                        );
+                      });
+                }),
               ),
               Divider(),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
@@ -179,21 +207,22 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   child: Text(
                     'Produtos em destaque:',
                     style: TextStyle(
-                      fontSize: 18,
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold
-                    ),
+                        fontSize: 18,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Container(
                 height: 190,
                 child: ListView.builder(
                     padding: EdgeInsets.all(8.0),
                     scrollDirection: Axis.horizontal,
                     itemCount: 5,
-                    itemBuilder: (_, index){
+                    itemBuilder: (_, index) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 5, left: 5),
                         child: Card(
@@ -209,23 +238,24 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                     height: 70,
                                     width: 70,
                                   ),
-                                  SizedBox(height: 10,),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                   Text(
                                     'Descrição do produto',
                                     textAlign: TextAlign.center,
                                   ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                      'R\$ 30,00'
-                                  )
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text('R\$ 30,00')
                                 ],
                               ),
                             ),
                           ),
                         ),
                       );
-                    }
-                ),
+                    }),
               ),
             ],
           ),

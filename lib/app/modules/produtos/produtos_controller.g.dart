@@ -7,7 +7,7 @@ part of 'produtos_controller.dart';
 // **************************************************************************
 
 final $ProdutosController = BindInject(
-  (i) => ProdutosController(),
+  (i) => ProdutosController(i<IProdutosRepository>()),
   isSingleton: true,
   isLazy: true,
 );
@@ -19,18 +19,18 @@ final $ProdutosController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ProdutosController on _ProdutosControllerBase, Store {
-  final _$valueAtom = Atom(name: '_ProdutosControllerBase.value');
+  final _$prodListAtom = Atom(name: '_ProdutosControllerBase.prodList');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  ObservableStream<List<ProdutoModel>> get prodList {
+    _$prodListAtom.reportRead();
+    return super.prodList;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set prodList(ObservableStream<List<ProdutoModel>> value) {
+    _$prodListAtom.reportWrite(value, super.prodList, () {
+      super.prodList = value;
     });
   }
 
@@ -38,11 +38,11 @@ mixin _$ProdutosController on _ProdutosControllerBase, Store {
       ActionController(name: '_ProdutosControllerBase');
 
   @override
-  void increment() {
+  dynamic getProduto() {
     final _$actionInfo = _$_ProdutosControllerBaseActionController.startAction(
-        name: '_ProdutosControllerBase.increment');
+        name: '_ProdutosControllerBase.getProduto');
     try {
-      return super.increment();
+      return super.getProduto();
     } finally {
       _$_ProdutosControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -51,7 +51,7 @@ mixin _$ProdutosController on _ProdutosControllerBase, Store {
   @override
   String toString() {
     return '''
-value: ${value}
+prodList: ${prodList}
     ''';
   }
 }

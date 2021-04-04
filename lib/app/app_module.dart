@@ -52,7 +52,7 @@ class AppModule extends Module {
         $CadEndController,
         Bind((i) => SplashController(i.get<FirebaseAuth>())),
         
-        Bind.instance(FirebaseAuth.instance),
+        Bind((i) => FirebaseAuth.instance),
   ];
 
   @override

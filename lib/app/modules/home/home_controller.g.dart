@@ -7,7 +7,7 @@ part of 'home_controller.dart';
 // **************************************************************************
 
 final $HomeController = BindInject(
-  (i) => HomeController(),
+  (i) => HomeController(i<ICategoriaRepository>()),
   isSingleton: true,
   isLazy: true,
 );
@@ -19,18 +19,18 @@ final $HomeController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
-  final _$valueAtom = Atom(name: '_HomeControllerBase.value');
+  final _$categoriaListAtom = Atom(name: '_HomeControllerBase.categoriaList');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  ObservableStream<List<CategoriaModel>> get categoriaList {
+    _$categoriaListAtom.reportRead();
+    return super.categoriaList;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set categoriaList(ObservableStream<List<CategoriaModel>> value) {
+    _$categoriaListAtom.reportWrite(value, super.categoriaList, () {
+      super.categoriaList = value;
     });
   }
 
@@ -38,11 +38,11 @@ mixin _$HomeController on _HomeControllerBase, Store {
       ActionController(name: '_HomeControllerBase');
 
   @override
-  void increment() {
+  dynamic getCategoria() {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.increment');
+        name: '_HomeControllerBase.getCategoria');
     try {
-      return super.increment();
+      return super.getCategoria();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -51,7 +51,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
   @override
   String toString() {
     return '''
-value: ${value}
+categoriaList: ${categoriaList}
     ''';
   }
 }

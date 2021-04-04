@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/firebase_errors.dart';
-import 'package:rosilagropecuaria/app/modules/model/cliente.dart';
+import 'package:rosilagropecuaria/app/modules/model/cliente_model.dart';
 
 part 'login_controller.g.dart';
 
@@ -21,7 +21,7 @@ abstract class _LoginControllerBase with Store {
   @observable
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   @observable
-  Cliente cliente;
+  ClienteModel cliente;
   @observable
   bool loading = false;
 
@@ -31,7 +31,7 @@ abstract class _LoginControllerBase with Store {
   bool get isLoggedIn => cliente != null;
 
   @action
-  Future<void> signIn({Cliente cliente, Function onFail, Function onSuccess}) async {
+  Future<void> signIn({ClienteModel cliente, Function onFail, Function onSuccess}) async {
     setLoading(true);
     try {
       final UserCredential  result = await auth.signInWithEmailAndPassword(
@@ -52,7 +52,7 @@ abstract class _LoginControllerBase with Store {
     if(currentUser != null){
       final DocumentSnapshot docUser = await firestore.collection('users')
           .doc(currentUser.uid).get();
-      cliente = Cliente.fromDocument(docUser);
+      cliente = ClienteModel.fromDocument(docUser);
 
       cliente.saveToken();
 

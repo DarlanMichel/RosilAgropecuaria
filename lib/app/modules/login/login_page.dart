@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/validators.dart';
-import 'package:rosilagropecuaria/app/modules/model/cliente.dart';
+import 'package:rosilagropecuaria/app/modules/model/cliente_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_controller.dart';
 
@@ -129,7 +129,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                 : () {
                                     if (formKey.currentState.validate()) {
                                       controller.signIn(
-                                          cliente: Cliente(
+                                          cliente: ClienteModel(
                                               email: emailController.text,
                                               password: passController.text),
                                           onFail: (e) {

@@ -2,11 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:io';
 
-class Cliente {
+class ClienteModel {
 
-  Cliente({this.email, this.password, this.name, this.id});
+  String id;
+  String name;
+  String email;
+  String cpf;
+  String password;
 
-  Cliente.fromDocument(DocumentSnapshot document){
+  String confirmPassword;
+
+  ClienteModel({this.email, this.password, this.name, this.id});
+
+  ClienteModel.fromDocument(DocumentSnapshot document){
     id = document.id;
     name = document.data()['name'] as String;
     email = document.data()['email'] as String;
@@ -17,13 +25,7 @@ class Cliente {
     //}
   }
 
-  String id;
-  String name;
-  String email;
-  String cpf;
-  String password;
-
-  String confirmPassword;
+  
 
   bool admin = false;
 

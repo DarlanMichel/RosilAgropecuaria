@@ -52,13 +52,13 @@ mixin _$LoginController on _LoginControllerBase, Store {
   final _$clienteAtom = Atom(name: '_LoginControllerBase.cliente');
 
   @override
-  Cliente get cliente {
+  ClienteModel get cliente {
     _$clienteAtom.reportRead();
     return super.cliente;
   }
 
   @override
-  set cliente(Cliente value) {
+  set cliente(ClienteModel value) {
     _$clienteAtom.reportWrite(value, super.cliente, () {
       super.cliente = value;
     });
@@ -82,7 +82,8 @@ mixin _$LoginController on _LoginControllerBase, Store {
   final _$signInAsyncAction = AsyncAction('_LoginControllerBase.signIn');
 
   @override
-  Future<void> signIn({Cliente cliente, Function onFail, Function onSuccess}) {
+  Future<void> signIn(
+      {ClienteModel cliente, Function onFail, Function onSuccess}) {
     return _$signInAsyncAction.run(() =>
         super.signIn(cliente: cliente, onFail: onFail, onSuccess: onSuccess));
   }

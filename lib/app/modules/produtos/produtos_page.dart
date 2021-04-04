@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:rosilagropecuaria/app/modules/model/produto_model.dart';
 import 'produtos_controller.dart';
 
 class ProdutosPage extends StatefulWidget {
@@ -101,11 +103,30 @@ class _ProdutosPageState extends ModularState<ProdutosPage, ProdutosController> 
               ),
             ),
             Expanded(
-              child: ListView.builder(
+              child: Observer(
+                builder: (_) {
+
+                  if (controller.prodList.hasError) {
+                    return Center(
+                      child: TextButton(
+                        onPressed: controller.getProduto(),
+                        child: Text("Recarregar"),
+                      ),
+                    );
+                  }
+
+                  if (controller.prodList.data == null) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  List<ProdutoModel> listProd = controller.prodList.data;
+
+                  return ListView.builder(
                   padding: EdgeInsets.all(8.0),
                   scrollDirection: Axis.vertical,
-                  itemCount: 10,
+                  itemCount: listProd.length,
                   itemBuilder: (_, index){
+                    ProdutoModel model = listProd[index];
                     return Padding(
                       padding: const EdgeInsets.only(right: 5, left: 5),
                       child: Card(
@@ -126,7 +147,7 @@ class _ProdutosPageState extends ModularState<ProdutosPage, ProdutosController> 
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Descrição do produto',
+                                        model.descricao,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 20,
@@ -141,7 +162,7 @@ class _ProdutosPageState extends ModularState<ProdutosPage, ProdutosController> 
                                           Padding(
                                             padding: const EdgeInsets.only(left: 15),
                                             child: Text(
-                                              'R\$ 30,00',
+                                              "R\$ ${model.preco.toStringAsFixed(2).replaceAll('.', ',')}",
                                               style: TextStyle(
                                                   fontSize: 20,
                                                   color: Theme.of(context).primaryColor
@@ -187,9 +208,9 @@ class _ProdutosPageState extends ModularState<ProdutosPage, ProdutosController> 
                       ),
                     );
                   }
-              ),
-            ),
-          ],
+              );
+                }),
+            )],
         ),
       ),
     );

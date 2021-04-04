@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/firebase_errors.dart';
-import 'package:rosilagropecuaria/app/modules/model/cliente.dart';
+import 'package:rosilagropecuaria/app/modules/model/cliente_model.dart';
 
 part 'cadastro_controller.g.dart';
 
@@ -13,7 +13,7 @@ abstract class _CadastroControllerBase with Store {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   @observable
-  Cliente cliente;
+  ClienteModel cliente;
 
   @observable
   bool loading = false;
@@ -22,7 +22,7 @@ abstract class _CadastroControllerBase with Store {
   void setLoading(bool _loading) => loading = _loading;
 
   @action
-  Future<void> signUp({Cliente cliente, Function onFail, Function onSuccess}) async {
+  Future<void> signUp({ClienteModel cliente, Function onFail, Function onSuccess}) async {
     setLoading(true);
     try {
       final UserCredential result = await auth.createUserWithEmailAndPassword(

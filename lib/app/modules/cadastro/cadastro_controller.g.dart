@@ -22,13 +22,13 @@ mixin _$CadastroController on _CadastroControllerBase, Store {
   final _$clienteAtom = Atom(name: '_CadastroControllerBase.cliente');
 
   @override
-  Cliente get cliente {
+  ClienteModel get cliente {
     _$clienteAtom.reportRead();
     return super.cliente;
   }
 
   @override
-  set cliente(Cliente value) {
+  set cliente(ClienteModel value) {
     _$clienteAtom.reportWrite(value, super.cliente, () {
       super.cliente = value;
     });
@@ -52,7 +52,8 @@ mixin _$CadastroController on _CadastroControllerBase, Store {
   final _$signUpAsyncAction = AsyncAction('_CadastroControllerBase.signUp');
 
   @override
-  Future<void> signUp({Cliente cliente, Function onFail, Function onSuccess}) {
+  Future<void> signUp(
+      {ClienteModel cliente, Function onFail, Function onSuccess}) {
     return _$signUpAsyncAction.run(() =>
         super.signUp(cliente: cliente, onFail: onFail, onSuccess: onSuccess));
   }
