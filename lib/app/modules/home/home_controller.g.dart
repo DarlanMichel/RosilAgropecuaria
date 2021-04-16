@@ -7,7 +7,7 @@ part of 'home_controller.dart';
 // **************************************************************************
 
 final $HomeController = BindInject(
-  (i) => HomeController(i<ICategoriaRepository>()),
+  (i) => HomeController(i<ICategoriaRepository>(), i<IProdutosRepository>()),
   isSingleton: true,
   isLazy: true,
 );
@@ -22,36 +22,53 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$categoriaListAtom = Atom(name: '_HomeControllerBase.categoriaList');
 
   @override
-  ObservableStream<List<CategoriaModel>> get categoriaList {
+  List<CategoriaModel> get categoriaList {
     _$categoriaListAtom.reportRead();
     return super.categoriaList;
   }
 
   @override
-  set categoriaList(ObservableStream<List<CategoriaModel>> value) {
+  set categoriaList(List<CategoriaModel> value) {
     _$categoriaListAtom.reportWrite(value, super.categoriaList, () {
       super.categoriaList = value;
     });
   }
 
-  final _$_HomeControllerBaseActionController =
-      ActionController(name: '_HomeControllerBase');
+  final _$produtoListAtom = Atom(name: '_HomeControllerBase.produtoList');
 
   @override
-  dynamic getCategoria() {
-    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.getCategoria');
-    try {
-      return super.getCategoria();
-    } finally {
-      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
-    }
+  List<ProdutoModel> get produtoList {
+    _$produtoListAtom.reportRead();
+    return super.produtoList;
+  }
+
+  @override
+  set produtoList(List<ProdutoModel> value) {
+    _$produtoListAtom.reportWrite(value, super.produtoList, () {
+      super.produtoList = value;
+    });
+  }
+
+  final _$getCategoriaAsyncAction =
+      AsyncAction('_HomeControllerBase.getCategoria');
+
+  @override
+  Future getCategoria() {
+    return _$getCategoriaAsyncAction.run(() => super.getCategoria());
+  }
+
+  final _$getProdutoAsyncAction = AsyncAction('_HomeControllerBase.getProduto');
+
+  @override
+  Future getProduto() {
+    return _$getProdutoAsyncAction.run(() => super.getProduto());
   }
 
   @override
   String toString() {
     return '''
-categoriaList: ${categoriaList}
+categoriaList: ${categoriaList},
+produtoList: ${produtoList}
     ''';
   }
 }

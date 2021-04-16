@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/model/categoria_model.dart';
+import 'package:rosilagropecuaria/app/modules/model/produto_model.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -113,14 +114,19 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             children: <Widget>[
               Container(
                 height: 200,
+                width: MediaQuery.of(context).size.width,
                 color: Colors.orange,
+                child: Image.network(
+                  'https://res.cloudinary.com/dx1tx3aso/image/upload/v1617655415/promocao/IMG-20210120-WA0006_nrbxl3.jpg',
+                  fit: BoxFit.fill,
+                ),
               ),
               Container(
                 padding: const EdgeInsets.only(
                     top: 15, bottom: 10, right: 20, left: 20),
                 child: TextFormField(
                   onTap: () {
-                    Modular.to.pushNamed("/produtos");
+                    Modular.to.pushNamed("/produtos", arguments: '0');
                   },
                   decoration: InputDecoration(
                     fillColor: Theme.of(context).primaryColor,
@@ -137,20 +143,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               Container(
                 height: 150,
                 child: Observer(builder: (_) {
-                  if (controller.categoriaList.hasError) {
-                    return Center(
-                      child: TextButton(
-                        onPressed: controller.getCategoria(),
-                        child: Text("Recarregar"),
-                      ),
-                    );
-                  }
-
-                  if (controller.categoriaList.data == null) {
+                  if (controller.categoriaList == null) {
                     return Center(child: CircularProgressIndicator());
                   }
 
-                  List<CategoriaModel> listCat = controller.categoriaList.data;
+                  List<CategoriaModel> listCat = controller.categoriaList;
 
                   return ListView.builder(
                       padding: EdgeInsets.all(8.0),
@@ -170,15 +167,19 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                     shape: BoxShape.circle,
                                     color: Theme.of(context).primaryColor,
                                   ),
-                                  child: Image.network(
-                                    catModel.foto,
-                                    height: MediaQuery.of(context).size.height/2,
-                                    width: MediaQuery.of(context).size.width/2,
-                                    fit: BoxFit.fill,
+                                  child: ClipOval(
+                                    child: Image.network(
+                                      catModel.foto,
+                                      height:
+                                          MediaQuery.of(context).size.height,
+                                      width: MediaQuery.of(context).size.width,
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ),
                                 onTap: () {
-                                  Modular.to.pushNamed("/produtos");
+                                  Modular.to.pushNamed("/produtos",
+                                      arguments: catModel.id);
                                 },
                               ),
                               SizedBox(
@@ -217,45 +218,58 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 height: 10,
               ),
               Container(
-                height: 190,
-                child: ListView.builder(
-                    padding: EdgeInsets.all(8.0),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (_, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 5, left: 5),
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              height: 130,
-                              width: 100,
-                              child: Column(
-                                children: [
-                                  Container(
-                                    color: Theme.of(context).accentColor,
-                                    height: 70,
-                                    width: 70,
+                height: 215,
+                child: Observer(
+                  builder: (_) {
+                    if (controller.produtoList == null) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  List<ProdutoModel> listProd = controller.produtoList;
+
+                    return ListView.builder(
+                        padding: EdgeInsets.all(8.0),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: listProd.length,
+                        itemBuilder: (_, index) {
+                          ProdutoModel prodModel = listProd[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 5, left: 5),
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(                           
+                                  width: 130,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        //color: Theme.of(context).accentColor,
+                                        height: 70,
+                                        width: 70,
+                                        child: Image.network(prodModel.foto == '' ? 'https://www.freeiconspng.com/uploads/no-image-icon-4.png' : prodModel.foto),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          prodModel.descricao.toUpperCase(),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text("R\$ ${prodModel.preco.toStringAsFixed(2).replaceAll('.', ',')}")
+                                    ],
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    'Descrição do produto',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text('R\$ 30,00')
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      );
-                    }),
+                          );
+                        });
+                  }
+                ),
               ),
             ],
           ),

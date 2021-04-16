@@ -7,7 +7,8 @@ part of 'produtos_controller.dart';
 // **************************************************************************
 
 final $ProdutosController = BindInject(
-  (i) => ProdutosController(i<IProdutosRepository>()),
+  (i) => ProdutosController(
+      repository: i<IProdutosRepository>(), categoria: i.args.data),
   isSingleton: true,
   isLazy: true,
 );
@@ -22,30 +23,24 @@ mixin _$ProdutosController on _ProdutosControllerBase, Store {
   final _$prodListAtom = Atom(name: '_ProdutosControllerBase.prodList');
 
   @override
-  ObservableStream<List<ProdutoModel>> get prodList {
+  List<ProdutoModel> get prodList {
     _$prodListAtom.reportRead();
     return super.prodList;
   }
 
   @override
-  set prodList(ObservableStream<List<ProdutoModel>> value) {
+  set prodList(List<ProdutoModel> value) {
     _$prodListAtom.reportWrite(value, super.prodList, () {
       super.prodList = value;
     });
   }
 
-  final _$_ProdutosControllerBaseActionController =
-      ActionController(name: '_ProdutosControllerBase');
+  final _$getProdutoAsyncAction =
+      AsyncAction('_ProdutosControllerBase.getProduto');
 
   @override
-  dynamic getProduto() {
-    final _$actionInfo = _$_ProdutosControllerBaseActionController.startAction(
-        name: '_ProdutosControllerBase.getProduto');
-    try {
-      return super.getProduto();
-    } finally {
-      _$_ProdutosControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future getProduto() {
+    return _$getProdutoAsyncAction.run(() => super.getProduto());
   }
 
   @override

@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/model/cliente_model.dart';
-import 'package:rosilagropecuaria/app/modules/repositories/cliente_repository_inteface.dart';
+import 'package:rosilagropecuaria/app/modules/repositories/interfaces/cliente_repository_inteface.dart';
 
+part 'cliente_repository.g.dart';
+
+@Injectable()
 class ClienteRepository implements IClienteRepository{
   final FirebaseFirestore firestore;
 
@@ -16,5 +20,8 @@ class ClienteRepository implements IClienteRepository{
       }).toList();
     });
   }
+
+  @override
+  void dispose() {}
 
 }

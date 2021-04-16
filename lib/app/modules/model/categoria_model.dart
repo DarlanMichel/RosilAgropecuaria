@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CategoriaModel {
-  DocumentReference id;
+  String id;
   String descricao;
   String foto;
 
@@ -9,7 +9,7 @@ class CategoriaModel {
 
   factory CategoriaModel.fromDocument(DocumentSnapshot doc) {
     return CategoriaModel(
-      id: doc.reference,
+      id: doc.id,
       descricao: doc['desc'],
       foto: doc['foto']
     );

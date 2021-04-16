@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rosilagropecuaria/app/app_controller.dart';
 import 'package:rosilagropecuaria/app/modules/cadastro/cadastro_controller.dart';
@@ -21,6 +22,7 @@ import 'package:rosilagropecuaria/app/modules/produtos/produtos_controller.dart'
 import 'package:rosilagropecuaria/app/modules/produtos/produtos_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/login/login_module.dart';
+import 'package:rosilagropecuaria/app/modules/repositories/produtos_repository.dart';
 import 'package:rosilagropecuaria/app/modules/splash/splash_controller.dart';
 import 'package:rosilagropecuaria/app/modules/splash/splash_module.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,9 +52,11 @@ class AppModule extends Module {
         $PedidosController,
         $SobreController,
         $CadEndController,
+        $ProdutosRepository,
         Bind((i) => SplashController(i.get<FirebaseAuth>())),
         
         Bind((i) => FirebaseAuth.instance),
+        Bind((i) => FirebaseFirestore.instance),
   ];
 
   @override
@@ -61,7 +65,7 @@ class AppModule extends Module {
         ModuleRoute('/home', module: HomeModule(), transition: TransitionType.fadeIn),
         ModuleRoute('/cadastro', module:  CadastroModule(), transition: TransitionType.fadeIn),
         ModuleRoute('/login', module: LoginModule(), transition: TransitionType.fadeIn),
-        ChildRoute('/produtos', child: (_, args) => ProdutosPage(), transition: TransitionType.fadeIn),
+        ChildRoute('/produtos', child: (_, args) => ProdutosPage(categoria: args.data,), transition: TransitionType.fadeIn),
         ModuleRoute('/favoritos', module:  FavoritosModule(), transition: TransitionType.fadeIn),
         ModuleRoute('/perfil', module: PerfilModule(), transition: TransitionType.fadeIn),
         ModuleRoute('/carrinho', module: CarrinhoModule(), transition: TransitionType.fadeIn),
