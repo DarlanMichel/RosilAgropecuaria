@@ -126,6 +126,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     top: 15, bottom: 10, right: 20, left: 20),
                 child: TextFormField(
                   onTap: () {
+                    FocusScope.of(context).unfocus();
                     Modular.to.pushNamed("/produtos", arguments: '0');
                   },
                   decoration: InputDecoration(
@@ -169,11 +170,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                   ),
                                   child: ClipOval(
                                     child: Image.network(
-                                      catModel.foto,
-                                      height:
-                                          MediaQuery.of(context).size.height,
-                                      width: MediaQuery.of(context).size.width,
-                                      fit: BoxFit.fill,
+                                      catModel.foto,  
+                                      cacheHeight: 75,
+                                      cacheWidth: 75,                                  
                                     ),
                                   ),
                                 ),
@@ -219,57 +218,58 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               ),
               Container(
                 height: 215,
-                child: Observer(
-                  builder: (_) {
-                    if (controller.produtoList == null) {
+                child: Observer(builder: (_) {
+                  if (controller.produtoList == null) {
                     return Center(child: CircularProgressIndicator());
                   }
 
                   List<ProdutoModel> listProd = controller.produtoList;
 
-                    return ListView.builder(
-                        padding: EdgeInsets.all(8.0),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listProd.length,
-                        itemBuilder: (_, index) {
-                          ProdutoModel prodModel = listProd[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 5, left: 5),
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Container(                           
-                                  width: 130,
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        //color: Theme.of(context).accentColor,
-                                        height: 70,
-                                        width: 70,
-                                        child: Image.network(prodModel.foto == '' ? 'https://www.freeiconspng.com/uploads/no-image-icon-4.png' : prodModel.foto),
+                  return ListView.builder(
+                      padding: EdgeInsets.all(8.0),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: listProd.length,
+                      itemBuilder: (_, index) {
+                        ProdutoModel prodModel = listProd[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 5, left: 5),
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: 130,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      //color: Theme.of(context).accentColor,
+                                      height: 70,
+                                      width: 70,
+                                      child: Image.network(prodModel.foto == ''
+                                          ? 'https://www.freeiconspng.com/uploads/no-image-icon-4.png'
+                                          : prodModel.foto),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        prodModel.descricao.toUpperCase(),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          prodModel.descricao.toUpperCase(),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text("R\$ ${prodModel.preco.toStringAsFixed(2).replaceAll('.', ',')}")
-                                    ],
-                                  ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                        "R\$ ${prodModel.preco.toStringAsFixed(2).replaceAll('.', ',')}")
+                                  ],
                                 ),
                               ),
                             ),
-                          );
-                        });
-                  }
-                ),
+                          ),
+                        );
+                      });
+                }),
               ),
             ],
           ),

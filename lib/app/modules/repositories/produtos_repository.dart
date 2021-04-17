@@ -12,11 +12,13 @@ class ProdutosRepository implements IProdutosRepository {
   ProdutosRepository(this.firestore);
 
   @override
-  Future<List<ProdutoModel>> getProduto(String categoria) {
+  Future<List<ProdutoModel>> getProduto(String categoria, String pesquisa) {
     return categoria == '0'
         ? firestore
             .collection('produtos')
             .orderBy('descricao')
+            .startAt([pesquisa])
+            .endAt([pesquisa + '\uf8ff'])
             .get()
             .then((query) {
             return query.docs.map((doc) {
@@ -27,6 +29,8 @@ class ProdutosRepository implements IProdutosRepository {
             .collection('produtos')
             .orderBy('descricao')
             .where('categoria', isEqualTo: categoria)
+            .startAt([pesquisa])
+            .endAt([pesquisa + '\uf8ff'])
             .get()
             .then((query) {
             return query.docs.map((doc) {

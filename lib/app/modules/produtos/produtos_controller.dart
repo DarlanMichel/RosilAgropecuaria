@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/model/produto_model.dart';
@@ -22,6 +21,15 @@ abstract class _ProdutosControllerBase with Store {
 
   @action
   getProduto() async {
-    prodList = await repository.getProduto(categoria);
+    prodList = await repository.getProduto(categoria, pesquisa);
+  }
+
+  @observable
+  String pesquisa = '';
+
+  @action
+  void setPesquisa(String _pesquisa){
+    pesquisa = _pesquisa.toLowerCase();
+    repository.getProduto(categoria, _pesquisa).then((data)=> prodList = data);
   }
 }

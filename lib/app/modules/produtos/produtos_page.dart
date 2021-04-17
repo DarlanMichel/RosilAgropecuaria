@@ -17,16 +17,16 @@ class _ProdutosPageState
     extends ModularState<ProdutosPage, ProdutosController> {
   bool favorite = false;
   bool carrinho = false;
-  String dropdownValue = 'Ordenar por';
+  //String dropdownValue = 'Ordenar por';
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      primary: Colors.orange,
-    );
+    //final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      //shape: RoundedRectangleBorder(
+        //borderRadius: BorderRadius.circular(10),
+      //),
+      //primary: Colors.orange,
+    //);
 
     return SafeArea(
       child: Scaffold(
@@ -44,6 +44,10 @@ class _ProdutosPageState
               padding: const EdgeInsets.only(
                   top: 15, bottom: 15, right: 30, left: 30),
               child: TextFormField(
+                autocorrect: false,
+                autofocus: widget.categoria == '0' ? true : false,
+                keyboardType: TextInputType.text,
+                onChanged: controller.setPesquisa,
                 decoration: InputDecoration(
                     fillColor: Theme.of(context).primaryColor,
                     border: OutlineInputBorder(
@@ -54,58 +58,58 @@ class _ProdutosPageState
                     prefixIcon: Icon(Icons.search)),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 15, left: 15),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        isExpanded: true,
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            color: Theme.of(context).primaryColor),
-                        value: dropdownValue,
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        iconSize: 20,
-                        items: <String>[
-                          'Ordenar por',
-                          'Ordem alfabética',
-                          'Menor Preço',
-                          'Maior Preço'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String newValue) {
-                          setState(() {
-                            dropdownValue = newValue;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    child: ElevatedButton(
-                      style: buttonStyle,
-                      onPressed: () {},
-                      child: Text(
-                        "Filtrar",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            //Padding(
+              //padding: const EdgeInsets.only(right: 15, left: 15),
+              //child: Row(
+                //children: [
+                  //Expanded(
+                    //child: DropdownButtonHideUnderline(
+                      //child: DropdownButton<String>(
+                        //isExpanded: true,
+                        //style: TextStyle(
+                            //fontSize: 15.0,
+                            //color: Theme.of(context).primaryColor),
+                        //value: dropdownValue,
+                        //icon: Icon(
+                          //Icons.arrow_drop_down,
+                          //color: Theme.of(context).primaryColor,
+                        //),
+                        //iconSize: 20,
+                        //items: <String>[
+                          //'Ordenar por',
+                          //'Ordem alfabética',
+                          //'Menor Preço',
+                          //'Maior Preço'
+                        //].map<DropdownMenuItem<String>>((String value) {
+                          //return DropdownMenuItem<String>(
+                            //value: value,
+                            //child: Text(value),
+                          //);
+                        //}).toList(),
+                        //onChanged: (String newValue) {
+                          //setState(() {
+                            //dropdownValue = newValue;
+                          //});
+                        //},
+                      //),
+                    //),
+                  //),
+                  //SizedBox(
+                    //width: 20,
+                  //),
+                  //Container(
+                    //child: ElevatedButton(
+                      //style: buttonStyle,
+                      //onPressed: () {},
+                      //child: Text(
+                        //"Filtrar",
+                        //style: TextStyle(fontSize: 18, color: Colors.white),
+                      //),
+                    //),
+                  //),
+                //],
+              //),
+            //),
             Expanded(
               child: Observer(builder: (_) {
                 if (controller.prodList == null) {
