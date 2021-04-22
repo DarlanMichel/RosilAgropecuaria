@@ -7,7 +7,7 @@ part of 'login_controller.dart';
 // **************************************************************************
 
 final $LoginController = BindInject(
-  (i) => LoginController(),
+  (i) => LoginController(i<IClienteRepository>()),
   isSingleton: true,
   isLazy: true,
 );
@@ -49,18 +49,33 @@ mixin _$LoginController on _LoginControllerBase, Store {
     });
   }
 
-  final _$clienteAtom = Atom(name: '_LoginControllerBase.cliente');
+  final _$emailAtom = Atom(name: '_LoginControllerBase.email');
 
   @override
-  ClienteModel get cliente {
-    _$clienteAtom.reportRead();
-    return super.cliente;
+  String get email {
+    _$emailAtom.reportRead();
+    return super.email;
   }
 
   @override
-  set cliente(ClienteModel value) {
-    _$clienteAtom.reportWrite(value, super.cliente, () {
-      super.cliente = value;
+  set email(String value) {
+    _$emailAtom.reportWrite(value, super.email, () {
+      super.email = value;
+    });
+  }
+
+  final _$senhaAtom = Atom(name: '_LoginControllerBase.senha');
+
+  @override
+  String get senha {
+    _$senhaAtom.reportRead();
+    return super.senha;
+  }
+
+  @override
+  set senha(String value) {
+    _$senhaAtom.reportWrite(value, super.senha, () {
+      super.senha = value;
     });
   }
 
@@ -82,23 +97,35 @@ mixin _$LoginController on _LoginControllerBase, Store {
   final _$signInAsyncAction = AsyncAction('_LoginControllerBase.signIn');
 
   @override
-  Future<void> signIn(
-      {ClienteModel cliente, Function onFail, Function onSuccess}) {
-    return _$signInAsyncAction.run(() =>
-        super.signIn(cliente: cliente, onFail: onFail, onSuccess: onSuccess));
-  }
-
-  final _$_loadCurrentUserAsyncAction =
-      AsyncAction('_LoginControllerBase._loadCurrentUser');
-
-  @override
-  Future<void> _loadCurrentUser({User firebaseUser}) {
-    return _$_loadCurrentUserAsyncAction
-        .run(() => super._loadCurrentUser(firebaseUser: firebaseUser));
+  Future<void> signIn({Function onFail, Function onSuccess}) {
+    return _$signInAsyncAction
+        .run(() => super.signIn(onFail: onFail, onSuccess: onSuccess));
   }
 
   final _$_LoginControllerBaseActionController =
       ActionController(name: '_LoginControllerBase');
+
+  @override
+  void setEmail(String _email) {
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
+        name: '_LoginControllerBase.setEmail');
+    try {
+      return super.setEmail(_email);
+    } finally {
+      _$_LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setSenha(String _senha) {
+    final _$actionInfo = _$_LoginControllerBaseActionController.startAction(
+        name: '_LoginControllerBase.setSenha');
+    try {
+      return super.setSenha(_senha);
+    } finally {
+      _$_LoginControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void setLoading(bool _loading) {
@@ -116,7 +143,8 @@ mixin _$LoginController on _LoginControllerBase, Store {
     return '''
 auth: ${auth},
 firestore: ${firestore},
-cliente: ${cliente},
+email: ${email},
+senha: ${senha},
 loading: ${loading}
     ''';
   }

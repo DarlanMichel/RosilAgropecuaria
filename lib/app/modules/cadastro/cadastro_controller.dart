@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/firebase_errors.dart';
-import 'package:rosilagropecuaria/app/modules/model/cliente_model.dart';
+import 'package:rosilagropecuaria/app/modules/repositories/cliente_repository.dart';
+import 'package:rosilagropecuaria/app/modules/repositories/interfaces/cliente_repository_inteface.dart';
 
 part 'cadastro_controller.g.dart';
 
@@ -10,10 +11,28 @@ part 'cadastro_controller.g.dart';
 class CadastroController = _CadastroControllerBase with _$CadastroController;
 
 abstract class _CadastroControllerBase with Store {
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  final ClienteRepository _repository;
+
+  _CadastroControllerBase(this._repository);
 
   @observable
-  ClienteModel cliente;
+  String email = '';
+
+  @observable
+  String senha = '';
+
+  @observable
+  String confirmaSenha = '';
+
+  @action
+  void setEmail(String _email) => email = _email;
+
+  @action
+  void setSenha(String _senha) => senha = _senha;
+
+  @action
+  void setConfirmaSenha(String _confirmaSenha) =>
+      confirmaSenha = _confirmaSenha;
 
   @observable
   bool loading = false;
@@ -21,19 +40,22 @@ abstract class _CadastroControllerBase with Store {
   @action
   void setLoading(bool _loading) => loading = _loading;
 
+  @observable
+  String id;
+
   @action
-  Future<void> signUp({ClienteModel cliente, Function onFail, Function onSuccess}) async {
+  Future<void> signUp({Function onFail, Function onSuccess}) async {
     setLoading(true);
     try {
-      final UserCredential result = await auth.createUserWithEmailAndPassword(
-          email: cliente.email, password: cliente.password);
+      final FirebaseAuth _auth = FirebaseAuth.instance;
 
-      cliente.id = result.user.uid;
-      this.cliente = cliente;
+      final User user = (await _auth.createUserWithEmailAndPassword(
+              email: email, password: senha))
+          .user;
 
-      await cliente.saveData();
+      id = user.uid;
 
-      cliente.saveToken();
+      await _repository.insertClient(id, email);
 
       onSuccess();
     } on FirebaseAuthException catch (e) {

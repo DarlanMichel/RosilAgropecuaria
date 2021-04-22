@@ -78,6 +78,7 @@ class _CadastroPageState
                             labelText: 'E-mail'),
                         enabled: !controller.loading,
                         keyboardType: TextInputType.emailAddress,
+                        onChanged: controller.setEmail,
                         validator: (email) {
                           if (email.isEmpty)
                             return 'Campo obrigatório';
@@ -101,7 +102,7 @@ class _CadastroPageState
                           else if (pass.length < 6) return 'Senha muito curta';
                           return null;
                         },
-                        onSaved: (pass) => cliente.password = pass,
+                        onChanged: controller.setSenha,
                       ),
                     ),
                     Padding(
@@ -118,7 +119,7 @@ class _CadastroPageState
                           else if (pass.length < 6) return 'Senha muito curta';
                           return null;
                         },
-                        onSaved: (pass) => cliente.confirmPassword = pass,
+                        onChanged: controller.setConfirmaSenha,
                       ),
                     ),
                     Align(
@@ -134,8 +135,8 @@ class _CadastroPageState
                               : () {
                                   if (formKey.currentState.validate()) {
                                     formKey.currentState.save();
-                                    if (cliente.password !=
-                                        cliente.confirmPassword) {
+                                    if (controller.senha !=
+                                        controller.confirmaSenha) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(const SnackBar(
                                         content: Text('Senhas não coincidem!'),
@@ -144,7 +145,6 @@ class _CadastroPageState
                                       return;
                                     }
                                     controller.signUp(
-                                        cliente: cliente,
                                         onSuccess: () async{
                                           SharedPreferences shared =
                                                 await SharedPreferences

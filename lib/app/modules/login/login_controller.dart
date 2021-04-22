@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/firebase_errors.dart';
-import 'package:rosilagropecuaria/app/modules/model/cliente_model.dart';
+import 'package:rosilagropecuaria/app/modules/repositories/cliente_repository.dart';
+import 'package:rosilagropecuaria/app/modules/repositories/interfaces/cliente_repository_inteface.dart';
 
 part 'login_controller.g.dart';
 
@@ -11,57 +12,50 @@ part 'login_controller.g.dart';
 class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store {
-  
-  _LoginControllerBase() {
-    _loadCurrentUser();
+  final ClienteRepository _repository;
+
+  _LoginControllerBase(this._repository) {
+    _repository.getCliente();
   }
 
   @observable
   FirebaseAuth auth = FirebaseAuth.instance;
+
   @observable
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   @observable
-  ClienteModel cliente;
+  String email = '';
+
+  @observable
+  String senha = '';
+
+  @action
+  void setEmail(String _email) => email = _email;
+
+  @action
+  void setSenha(String _senha) => senha = _senha;
+
   @observable
   bool loading = false;
 
   @action
   void setLoading(bool _loading) => loading = _loading;
 
-  bool get isLoggedIn => cliente != null;
-
   @action
-  Future<void> signIn({ClienteModel cliente, Function onFail, Function onSuccess}) async {
+  Future<void> signIn({Function onFail, Function onSuccess}) async {
     setLoading(true);
     try {
-      final UserCredential  result = await auth.signInWithEmailAndPassword(
-          email: cliente.email, password: cliente.password);
+      final User user =
+          (await auth.signInWithEmailAndPassword(email: email, password: senha))
+              .user;
 
-      await _loadCurrentUser(firebaseUser: result.user);
+      _repository.getCliente(firebaseUser: user);
 
       onSuccess();
-    } on FirebaseAuthException catch (e){
+    } on FirebaseAuthException catch (e) {
       onFail(getErrorString(e.code));
     }
     setLoading(false);
   }
-
-  @action
-  Future<void> _loadCurrentUser({User firebaseUser}) async {
-    final User currentUser = firebaseUser ?? auth.currentUser;
-    if(currentUser != null){
-      final DocumentSnapshot docUser = await firestore.collection('users')
-          .doc(currentUser.uid).get();
-      cliente = ClienteModel.fromDocument(docUser);
-
-      cliente.saveToken();
-
-      final docAdmin = await firestore.collection('admins').doc(cliente.id).get();
-      if(docAdmin.exists){
-        cliente.admin = true;
-      }
-    }
-  }
-
-  bool get adminEnabled => cliente != null && cliente.admin;
 }

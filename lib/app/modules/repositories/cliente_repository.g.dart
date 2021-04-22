@@ -7,7 +7,7 @@ part of 'cliente_repository.dart';
 // **************************************************************************
 
 final $ClienteRepository = BindInject(
-  (i) => ClienteRepository(i<FirebaseFirestore>()),
+  (i) => ClienteRepository(i<FirebaseFirestore>(), i<FirebaseAuth>()),
   isSingleton: true,
   isLazy: true,
 );

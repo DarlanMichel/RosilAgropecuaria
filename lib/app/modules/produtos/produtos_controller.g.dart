@@ -35,6 +35,21 @@ mixin _$ProdutosController on _ProdutosControllerBase, Store {
     });
   }
 
+  final _$pesquisaAtom = Atom(name: '_ProdutosControllerBase.pesquisa');
+
+  @override
+  String get pesquisa {
+    _$pesquisaAtom.reportRead();
+    return super.pesquisa;
+  }
+
+  @override
+  set pesquisa(String value) {
+    _$pesquisaAtom.reportWrite(value, super.pesquisa, () {
+      super.pesquisa = value;
+    });
+  }
+
   final _$getProdutoAsyncAction =
       AsyncAction('_ProdutosControllerBase.getProduto');
 
@@ -43,10 +58,25 @@ mixin _$ProdutosController on _ProdutosControllerBase, Store {
     return _$getProdutoAsyncAction.run(() => super.getProduto());
   }
 
+  final _$_ProdutosControllerBaseActionController =
+      ActionController(name: '_ProdutosControllerBase');
+
+  @override
+  void setPesquisa(String _pesquisa) {
+    final _$actionInfo = _$_ProdutosControllerBaseActionController.startAction(
+        name: '_ProdutosControllerBase.setPesquisa');
+    try {
+      return super.setPesquisa(_pesquisa);
+    } finally {
+      _$_ProdutosControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-prodList: ${prodList}
+prodList: ${prodList},
+pesquisa: ${pesquisa}
     ''';
   }
 }

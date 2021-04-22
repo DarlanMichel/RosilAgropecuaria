@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/validators.dart';
-import 'package:rosilagropecuaria/app/modules/model/cliente_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_controller.dart';
 
@@ -84,6 +83,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                           if (!emailValid(email)) return 'E-mail inválido';
                           return null;
                         },
+                        onChanged: controller.setEmail,
                       ),
                     ),
                     Padding(
@@ -101,6 +101,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                             return 'Senha inválida';
                           return null;
                         },
+                        onChanged: controller.setSenha,
                       ),
                     ),
                     Align(
@@ -129,9 +130,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                 : () {
                                     if (formKey.currentState.validate()) {
                                       controller.signIn(
-                                          cliente: ClienteModel(
-                                              email: emailController.text,
-                                              password: passController.text),
                                           onFail: (e) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(SnackBar(

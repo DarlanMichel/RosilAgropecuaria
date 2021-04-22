@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rosilagropecuaria/app/app_controller.dart';
 import 'package:rosilagropecuaria/app/modules/cadastro/cadastro_controller.dart';
 import 'package:rosilagropecuaria/app/modules/cadastro/cadastro_module.dart';
 import 'package:rosilagropecuaria/app/modules/carrinho/carrinho_controller.dart';
@@ -22,6 +21,7 @@ import 'package:rosilagropecuaria/app/modules/produtos/produtos_controller.dart'
 import 'package:rosilagropecuaria/app/modules/produtos/produtos_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/login/login_module.dart';
+import 'package:rosilagropecuaria/app/modules/repositories/cliente_repository.dart';
 import 'package:rosilagropecuaria/app/modules/repositories/produtos_repository.dart';
 import 'package:rosilagropecuaria/app/modules/splash/splash_controller.dart';
 import 'package:rosilagropecuaria/app/modules/splash/splash_module.dart';
@@ -46,13 +46,13 @@ class AppModule extends Module {
         $CadastroController,
         $LoginController,
         $HomeController,
-        $AppController,
         $EnderecoController,
         $MinhaContaController,
         $PedidosController,
         $SobreController,
         $CadEndController,
         $ProdutosRepository,
+        $ClienteRepository,
         Bind((i) => SplashController(i.get<FirebaseAuth>())),
         
         Bind((i) => FirebaseAuth.instance),
