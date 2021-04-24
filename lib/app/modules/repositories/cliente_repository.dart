@@ -32,11 +32,14 @@ class ClienteRepository implements IClienteRepository {
 
   @override
   Future<List<ClienteModel>> insertClient(String id, String email) {
-    return firestore.collection('users').doc(id).set({
-      'name': null,
-      'email': email,
-    }).then((query) {
-      print("Usser add");
-    });
+    return firestore
+        .collection('users')
+        .doc(id)
+        .set({
+          'name': null,
+          'email': email,
+        })
+        .then((query) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
   }
 }

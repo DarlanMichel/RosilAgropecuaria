@@ -7,7 +7,7 @@ part of 'cadastro_controller.dart';
 // **************************************************************************
 
 final $CadastroController = BindInject(
-  (i) => CadastroController(i<IClienteRepository>()),
+  (i) => CadastroController(i<ClienteRepository>()),
   isSingleton: true,
   isLazy: true,
 );

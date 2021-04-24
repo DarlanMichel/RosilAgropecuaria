@@ -7,7 +7,7 @@ part of 'endereco_controller.dart';
 // **************************************************************************
 
 final $EnderecoController = BindInject(
-  (i) => EnderecoController(),
+  (i) => EnderecoController(i<IEnderecoRepository>()),
   isSingleton: true,
   isLazy: true,
 );
@@ -19,39 +19,33 @@ final $EnderecoController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$EnderecoController on _EnderecoControllerBase, Store {
-  final _$valueAtom = Atom(name: '_EnderecoControllerBase.value');
+  final _$listEndAtom = Atom(name: '_EnderecoControllerBase.listEnd');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  List<EnderecoModel> get listEnd {
+    _$listEndAtom.reportRead();
+    return super.listEnd;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set listEnd(List<EnderecoModel> value) {
+    _$listEndAtom.reportWrite(value, super.listEnd, () {
+      super.listEnd = value;
     });
   }
 
-  final _$_EnderecoControllerBaseActionController =
-      ActionController(name: '_EnderecoControllerBase');
+  final _$getEnderecoAsyncAction =
+      AsyncAction('_EnderecoControllerBase.getEndereco');
 
   @override
-  void increment() {
-    final _$actionInfo = _$_EnderecoControllerBaseActionController.startAction(
-        name: '_EnderecoControllerBase.increment');
-    try {
-      return super.increment();
-    } finally {
-      _$_EnderecoControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future getEndereco() {
+    return _$getEnderecoAsyncAction.run(() => super.getEndereco());
   }
 
   @override
   String toString() {
     return '''
-value: ${value}
+listEnd: ${listEnd}
     ''';
   }
 }

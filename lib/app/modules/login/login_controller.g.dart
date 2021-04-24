@@ -7,7 +7,7 @@ part of 'login_controller.dart';
 // **************************************************************************
 
 final $LoginController = BindInject(
-  (i) => LoginController(i<IClienteRepository>()),
+  (i) => LoginController(i<ClienteRepository>()),
   isSingleton: true,
   isLazy: true,
 );

@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/firebase_errors.dart';
 import 'package:rosilagropecuaria/app/modules/repositories/cliente_repository.dart';
-import 'package:rosilagropecuaria/app/modules/repositories/interfaces/cliente_repository_inteface.dart';
 
 part 'login_controller.g.dart';
 

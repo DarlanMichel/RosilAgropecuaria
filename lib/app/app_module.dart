@@ -22,6 +22,7 @@ import 'package:rosilagropecuaria/app/modules/produtos/produtos_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/login/login_module.dart';
 import 'package:rosilagropecuaria/app/modules/repositories/cliente_repository.dart';
+import 'package:rosilagropecuaria/app/modules/repositories/endereco_repository.dart';
 import 'package:rosilagropecuaria/app/modules/repositories/produtos_repository.dart';
 import 'package:rosilagropecuaria/app/modules/splash/splash_controller.dart';
 import 'package:rosilagropecuaria/app/modules/splash/splash_module.dart';
@@ -53,6 +54,7 @@ class AppModule extends Module {
         $CadEndController,
         $ProdutosRepository,
         $ClienteRepository,
+        $EnderecoRepository,
         Bind((i) => SplashController(i.get<FirebaseAuth>())),
         
         Bind((i) => FirebaseAuth.instance),
