@@ -11,15 +11,37 @@ class EnderecoController = _EnderecoControllerBase with _$EnderecoController;
 abstract class _EnderecoControllerBase with Store {
   final IEnderecoRepository repository;
 
-  _EnderecoControllerBase(this.repository){
+  _EnderecoControllerBase(this.repository) {
     getEndereco();
   }
 
   @observable
-  List<EnderecoModel> listEnd;
+  ObservableStream<List<EnderecoModel>> listEnd;
 
   @action
-  getEndereco() async {
-    listEnd = await repository.getEndereco();
+  getEndereco() {
+    listEnd = repository.getEndereco().asObservable();
+  }
+
+  @action
+  deleteEndereco(String idEnd) async {
+    await repository.deleteEnd(idEnd);
+  }
+
+  List<String> opEnd = ["Editar", "Excluir"];
+
+  @observable
+  EnderecoModel model;
+
+  @action
+  selecOption(String _op) async {
+    switch (_op) {
+      case "Editar":
+        Modular.to.pushNamed('/cadend', arguments: model);
+        break;
+      case "Excluir":
+        deleteEndereco(model.id);
+        break;
+    }
   }
 }

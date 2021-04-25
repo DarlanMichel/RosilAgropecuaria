@@ -7,7 +7,7 @@ class EnderecoModel {
   String bairro;
   String cidade;
   String complemento;
-  int numero;
+  String numero;
   String referencia;
   String rua;
   String uf;

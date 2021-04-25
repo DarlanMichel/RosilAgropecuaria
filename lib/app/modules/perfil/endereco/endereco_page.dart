@@ -45,7 +45,7 @@ class _EnderecoPageState
                       return Center(child: Text("Nenhum endereço cadastrado!"));
                     }
 
-                    List<EnderecoModel> listEnde = controller.listEnd;
+                    List<EnderecoModel> listEnde = controller.listEnd.value;
 
                     return ListView.builder(
                       itemCount: listEnde.length,
@@ -88,35 +88,41 @@ class _EnderecoPageState
                                               ),
                                             ),
                                           ),
-                                          //PopupMenuButton<String>(
-                                          //onSelected: _selected,
-                                          //itemBuilder: (BuildContext context){
-                                          //return PopupEndereco.choices.map((String choice){
-                                          //return PopupMenuItem<String>(
-                                          //value: choice,
-                                          //child: Text(choice),
-                                          //);
-                                          //}).toList();
-                                          //},
-                                          //),
+                                          PopupMenuButton<String>(
+                                            onSelected: controller.selecOption,
+                                            itemBuilder: (context) {
+                                              controller.model = model;
+                                              return controller.opEnd
+                                                  .map((String op) {
+                                                return PopupMenuItem<String>(
+                                                    value: op, child: Text(op));
+                                              }).toList();
+                                            },
+                                          ),
                                         ],
                                       ),
                                       Text(
-                                        model.rua +', ' + model.numero.toString() + ' - ' + model.bairro,
+                                        model.rua +
+                                            ', ' +
+                                            model.numero.toString() +
+                                            ' - ' +
+                                            model.bairro,
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: Theme.of(context).primaryColor,
                                         ),
                                       ),
                                       Text(
-                                        model.cidade +' - '+model.uf,
+                                        model.cidade + ' - ' + model.uf,
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: Theme.of(context).primaryColor,
                                         ),
                                       ),
                                       Text(
-                                        model.complemento + ' - ' + model.referencia,
+                                        model.complemento +
+                                            ' - ' +
+                                            model.referencia,
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: Theme.of(context).primaryColor,

@@ -22,30 +22,68 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   final _$listEndAtom = Atom(name: '_EnderecoControllerBase.listEnd');
 
   @override
-  List<EnderecoModel> get listEnd {
+  ObservableStream<List<EnderecoModel>> get listEnd {
     _$listEndAtom.reportRead();
     return super.listEnd;
   }
 
   @override
-  set listEnd(List<EnderecoModel> value) {
+  set listEnd(ObservableStream<List<EnderecoModel>> value) {
     _$listEndAtom.reportWrite(value, super.listEnd, () {
       super.listEnd = value;
     });
   }
 
-  final _$getEnderecoAsyncAction =
-      AsyncAction('_EnderecoControllerBase.getEndereco');
+  final _$modelAtom = Atom(name: '_EnderecoControllerBase.model');
 
   @override
-  Future getEndereco() {
-    return _$getEnderecoAsyncAction.run(() => super.getEndereco());
+  EnderecoModel get model {
+    _$modelAtom.reportRead();
+    return super.model;
+  }
+
+  @override
+  set model(EnderecoModel value) {
+    _$modelAtom.reportWrite(value, super.model, () {
+      super.model = value;
+    });
+  }
+
+  final _$deleteEnderecoAsyncAction =
+      AsyncAction('_EnderecoControllerBase.deleteEndereco');
+
+  @override
+  Future deleteEndereco(String idEnd) {
+    return _$deleteEnderecoAsyncAction.run(() => super.deleteEndereco(idEnd));
+  }
+
+  final _$selecOptionAsyncAction =
+      AsyncAction('_EnderecoControllerBase.selecOption');
+
+  @override
+  Future selecOption(String _op) {
+    return _$selecOptionAsyncAction.run(() => super.selecOption(_op));
+  }
+
+  final _$_EnderecoControllerBaseActionController =
+      ActionController(name: '_EnderecoControllerBase');
+
+  @override
+  dynamic getEndereco() {
+    final _$actionInfo = _$_EnderecoControllerBaseActionController.startAction(
+        name: '_EnderecoControllerBase.getEndereco');
+    try {
+      return super.getEndereco();
+    } finally {
+      _$_EnderecoControllerBaseActionController.endAction(_$actionInfo);
+    }
   }
 
   @override
   String toString() {
     return '''
-listEnd: ${listEnd}
+listEnd: ${listEnd},
+model: ${model}
     ''';
   }
 }

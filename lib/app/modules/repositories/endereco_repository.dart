@@ -17,17 +17,79 @@ class EnderecoRepository implements IEnderecoRepository {
   void dispose() {}
 
   @override
-  Future<List<EnderecoModel>> getEndereco() {
+  Stream<List<EnderecoModel>> getEndereco() {
     final String currentUser = auth.currentUser.uid.toString();
     return firestore
         .collection('users')
         .doc(currentUser)
-        .collection('endereços')
-        .get()
-        .then((query) {
+        .collection('enderecos')
+        .snapshots()
+        .map((query) {
       return query.docs.map((doc) {
         return EnderecoModel.fromDocument(doc);
       }).toList();
     });
+  }
+
+  @override
+  Future deleteEnd(String idEnd) {
+    final String currentUser = auth.currentUser.uid.toString();
+    return firestore
+        .collection('users')
+        .doc(currentUser)
+        .collection('enderecos')
+        .doc(idEnd)
+        .delete()
+        .then((value) => print("Endereço Deleted"))
+        .catchError((error) => print("Failed to delete Endereço: $error"));
+  }
+
+  @override
+  Future insertEnd(String bairro, String cep, String cidade, String complemento, String descricao, String uf, String numero, String referencia, String rua) {
+    final String currentUser = auth.currentUser.uid.toString();
+    return firestore
+        .collection('users')
+        .doc(currentUser)
+        .collection('enderecos')
+        .add(
+          {
+            'descricao': descricao,
+            'cep': cep,
+            'bairro': bairro,
+            'cidade': cidade,
+            'complemento': complemento,
+            'numero': numero,
+            'referencia': referencia,
+            'rua': rua,
+            'uf': uf
+          }
+        )
+        .then((value) => print("Endereço Added"))
+        .catchError((error) => print("Failed to add Endereço: $error"));
+  }
+
+  @override
+  Future updateEnd(EnderecoModel model) {
+    final String currentUser = auth.currentUser.uid.toString();
+    return firestore
+        .collection('users')
+        .doc(currentUser)
+        .collection('enderecos')
+        .doc(model.id)
+        .update(
+          {
+            'descricao': model.descricao,
+            'cep': model.cep,
+            'bairro': model.bairro,
+            'cidade': model.cidade,
+            'complemento': model.complemento,
+            'numero': model.numero,
+            'referencia': model.referencia,
+            'rua': model.rua,
+            'uf': model.uf
+          }
+        )
+        .then((value) => print("Endereço Updated"))
+        .catchError((error) => print("Failed to update Endereço: $error"));
   }
 }

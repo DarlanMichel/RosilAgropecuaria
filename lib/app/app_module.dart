@@ -75,6 +75,6 @@ class AppModule extends Module {
         ChildRoute('/minhaconta', child: (_, args) => MinhaContaPage(), transition: TransitionType.fadeIn),
         ChildRoute('/pedidos', child: (_, args) => PedidosPage(), transition: TransitionType.fadeIn),
         ChildRoute('/sobre', child: (_, args) => SobrePage(), transition: TransitionType.fadeIn),
-        ChildRoute('/cadend', child: (_, args) => CadEndPage(), transition: TransitionType.fadeIn),
+        ChildRoute('/cadend', child: (_, args) => CadEndPage(model: args.data,), transition: TransitionType.fadeIn),
       ];
 }
