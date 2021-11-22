@@ -11,14 +11,14 @@ part 'home_controller.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-  final ICategoriaRepository catRepository;
-  final IProdutosRepository prodRepository;
+  late final ICategoriaRepository catRepository;
+  late final IProdutosRepository prodRepository;
 
   @observable
-  List<CategoriaModel> categoriaList;
+  List<CategoriaModel>? categoriaList;
 
   @observable
-  List<ProdutoModel> produtoList;
+  List<ProdutoModel>? produtoList;
 
   _HomeControllerBase(this.catRepository, this.prodRepository) {
     getCategoria();

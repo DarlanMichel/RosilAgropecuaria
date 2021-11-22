@@ -4,7 +4,7 @@ import 'carrinho_controller.dart';
 
 class CarrinhoPage extends StatefulWidget {
   final String title;
-  const CarrinhoPage({Key key, this.title = "Carrinho"}) : super(key: key);
+  const CarrinhoPage({Key? key, this.title = "Carrinho"}) : super(key: key);
 
   @override
   _CarrinhoPageState createState() => _CarrinhoPageState();
@@ -32,7 +32,7 @@ class _CarrinhoPageState
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      primary: Theme.of(context).accentColor,
+      primary: Theme.of(context).colorScheme.secondary,
     );
 
     return SafeArea(
@@ -146,7 +146,7 @@ class _CarrinhoPageState
                             child: Row(
                               children: [
                                 Container(
-                                  color: Theme.of(context).accentColor,
+                                  color: Theme.of(context).colorScheme.secondary,
                                   height: 80,
                                   width: 80,
                                 ),
@@ -267,9 +267,9 @@ class _CarrinhoPageState
                           child: Text(value),
                         );
                       }).toList(),
-                      onChanged: (String newValue) {
+                      onChanged: (String? newValue) {
                         setState(() {
-                          dropdownEnd = newValue;
+                          dropdownEnd = newValue ?? '';
                         });
                       },
                     ),
@@ -304,9 +304,9 @@ class _CarrinhoPageState
                           child: Text(value),
                         );
                       }).toList(),
-                      onChanged: (String newValue) {
+                      onChanged: (String? newValue) {
                         setState(() {
-                          dropdownFpgto = newValue;
+                          dropdownFpgto = newValue ?? '';
                         });
                       },
                     ),
@@ -412,10 +412,10 @@ class _CarrinhoPageState
                           children: <Widget>[
                             Text("Subtotal",
                             style: TextStyle(
-                                  color: Theme.of(context).accentColor)),
+                                  color: Theme.of(context).colorScheme.secondary)),
                             Text("R\$ 90,00",
                             style: TextStyle(
-                                  color: Theme.of(context).accentColor)),
+                                  color: Theme.of(context).colorScheme.secondary)),
                           ],
                         ),
                         Divider(),
@@ -424,10 +424,10 @@ class _CarrinhoPageState
                           children: <Widget>[
                             Text("Desconto",
                             style: TextStyle(
-                                  color: Theme.of(context).accentColor)),
+                                  color: Theme.of(context).colorScheme.secondary)),
                             Text("R\$ 0,00",
                             style: TextStyle(
-                                  color: Theme.of(context).accentColor)),
+                                  color: Theme.of(context).colorScheme.secondary)),
                           ],
                         ),
                         Divider(),
@@ -436,10 +436,10 @@ class _CarrinhoPageState
                           children: <Widget>[
                             Text("Frete",
                             style: TextStyle(
-                                  color: Theme.of(context).accentColor)), 
+                                  color: Theme.of(context).colorScheme.secondary)),
                             Text("R\$ 10,00",
                             style: TextStyle(
-                                  color: Theme.of(context).accentColor))
+                                  color: Theme.of(context).colorScheme.secondary))
                           ],
                         ),
                         Divider(),

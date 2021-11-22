@@ -18,7 +18,7 @@ class EnderecoRepository implements IEnderecoRepository {
 
   @override
   Stream<List<EnderecoModel>> getEndereco() {
-    final String currentUser = auth.currentUser.uid.toString();
+    final String currentUser = auth.currentUser!.uid.toString();
     return firestore
         .collection('users')
         .doc(currentUser)
@@ -33,7 +33,7 @@ class EnderecoRepository implements IEnderecoRepository {
 
   @override
   Future deleteEnd(String idEnd) {
-    final String currentUser = auth.currentUser.uid.toString();
+    final String currentUser = auth.currentUser!.uid.toString();
     return firestore
         .collection('users')
         .doc(currentUser)
@@ -46,7 +46,7 @@ class EnderecoRepository implements IEnderecoRepository {
 
   @override
   Future insertEnd(String bairro, String cep, String cidade, String complemento, String descricao, String uf, String numero, String referencia, String rua) {
-    final String currentUser = auth.currentUser.uid.toString();
+    final String currentUser = auth.currentUser!.uid.toString();
     return firestore
         .collection('users')
         .doc(currentUser)
@@ -70,7 +70,7 @@ class EnderecoRepository implements IEnderecoRepository {
 
   @override
   Future updateEnd(EnderecoModel model) {
-    final String currentUser = auth.currentUser.uid.toString();
+    final String currentUser = auth.currentUser!.uid.toString();
     return firestore
         .collection('users')
         .doc(currentUser)

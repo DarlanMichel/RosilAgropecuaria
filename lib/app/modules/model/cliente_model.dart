@@ -2,16 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ClienteModel {
 
-  String id;
-  String name;
-  String email;
+  String? id;
+  String? name;
+  String? email;
 
   ClienteModel({this.email, this.name, this.id});
 
   ClienteModel.fromDocument(DocumentSnapshot document){
     id = document.id;
-    name = document.data()['name'] as String;
-    email = document.data()['email'] as String;
+    name = document['name'] as String;
+    email = document['email'] as String;
     //if(document.data().containsKey('address')){
       //address = Address.fromMap(
           //document.data['address'] as Map<String, dynamic>);

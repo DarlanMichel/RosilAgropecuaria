@@ -8,7 +8,7 @@ import 'cadastro_controller.dart';
 
 class CadastroPage extends StatefulWidget {
   final String title;
-  const CadastroPage({Key key, this.title = "Cadastro"}) : super(key: key);
+  const CadastroPage({Key? key, this.title = "Cadastro"}) : super(key: key);
 
   @override
   _CadastroPageState createState() => _CadastroPageState();
@@ -80,12 +80,12 @@ class _CadastroPageState
                         keyboardType: TextInputType.emailAddress,
                         onChanged: controller.setEmail,
                         validator: (email) {
-                          if (email.isEmpty)
+                          if (email!.isEmpty)
                             return 'Campo obrigatório';
                           else if (!emailValid(email)) return 'E-mail inválido';
                           return null;
                         },
-                        onSaved: (email) => cliente.email = email,
+                        onSaved: (email) => cliente.email = email!,
                       ),
                     ),
                     Padding(
@@ -97,7 +97,7 @@ class _CadastroPageState
                             hintText: '****', labelText: 'Senha'),
                         enabled: !controller.loading,
                         validator: (pass) {
-                          if (pass.isEmpty)
+                          if (pass!.isEmpty)
                             return 'Campo obrigatório';
                           else if (pass.length < 6) return 'Senha muito curta';
                           return null;
@@ -114,7 +114,7 @@ class _CadastroPageState
                             hintText: '****', labelText: 'Repita a Senha'),
                         enabled: !controller.loading,
                         validator: (pass) {
-                          if (pass.isEmpty)
+                          if (pass!.isEmpty)
                             return 'Campo obrigatório';
                           else if (pass.length < 6) return 'Senha muito curta';
                           return null;
@@ -133,8 +133,8 @@ class _CadastroPageState
                           onPressed: controller.loading
                               ? null
                               : () {
-                                  if (formKey.currentState.validate()) {
-                                    formKey.currentState.save();
+                                  if (formKey.currentState!.validate()) {
+                                    formKey.currentState?.save();
                                     if (controller.senha !=
                                         controller.confirmaSenha) {
                                       ScaffoldMessenger.of(context)

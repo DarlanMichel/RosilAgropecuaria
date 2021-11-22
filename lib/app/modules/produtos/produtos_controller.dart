@@ -9,19 +9,19 @@ part 'produtos_controller.g.dart';
 class ProdutosController = _ProdutosControllerBase with _$ProdutosController;
 
 abstract class _ProdutosControllerBase with Store {
-  final IProdutosRepository repository;
-  final String categoria;
+  late final IProdutosRepository repository;
+  final String? categoria;
 
   @observable
-  List<ProdutoModel> prodList;
+  List<ProdutoModel>? prodList;
 
-  _ProdutosControllerBase({this.repository, @Data this.categoria}) {
+  _ProdutosControllerBase({required this.repository, @Data this.categoria}) {
     getProduto();
   }
 
   @action
   getProduto() async {
-    prodList = await repository.getProduto(categoria, pesquisa);
+    prodList = await repository.getProduto(categoria!, pesquisa);
   }
 
   @observable
@@ -30,6 +30,6 @@ abstract class _ProdutosControllerBase with Store {
   @action
   void setPesquisa(String _pesquisa){
     pesquisa = _pesquisa.toLowerCase();
-    repository.getProduto(categoria, _pesquisa).then((data)=> prodList = data);
+    repository.getProduto(categoria!, _pesquisa).then((data)=> prodList = data);
   }
 }

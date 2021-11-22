@@ -5,7 +5,7 @@ class CategoriaModel {
   String descricao;
   String foto;
 
-  CategoriaModel({this.id, this.descricao, this.foto});
+  CategoriaModel({required this.id, required this.descricao, required this.foto});
 
   factory CategoriaModel.fromDocument(DocumentSnapshot doc) {
     return CategoriaModel(

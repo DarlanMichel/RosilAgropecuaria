@@ -3,13 +3,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ProdutoModel {
   String id;
   String descricao;
-  String foto;
+  String? foto;
   double preco;
   String categoria;
   bool destaque;
 
   ProdutoModel(
-      {this.id, this.descricao, this.foto, this.preco, this.categoria, this.destaque});
+      {required this.id,
+      required this.descricao,
+      this.foto,
+      required this.preco,
+      required this.categoria,
+      required this.destaque});
 
   factory ProdutoModel.fromDocument(DocumentSnapshot doc) {
     return ProdutoModel(
@@ -18,7 +23,6 @@ class ProdutoModel {
         foto: doc['foto'],
         preco: double.parse(doc['preco'].toString()),
         categoria: doc['categoria'],
-        destaque: doc['destaque']
-    );
+        destaque: doc['destaque']);
   }
 }

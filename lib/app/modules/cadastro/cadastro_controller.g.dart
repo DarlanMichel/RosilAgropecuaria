@@ -98,7 +98,7 @@ mixin _$CadastroController on _CadastroControllerBase, Store {
   final _$signUpAsyncAction = AsyncAction('_CadastroControllerBase.signUp');
 
   @override
-  Future<void> signUp({Function onFail, Function onSuccess}) {
+  Future<void> signUp({Function? onFail, Function? onSuccess}) {
     return _$signUpAsyncAction
         .run(() => super.signUp(onFail: onFail, onSuccess: onSuccess));
   }

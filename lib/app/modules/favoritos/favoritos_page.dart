@@ -4,7 +4,7 @@ import 'favoritos_controller.dart';
 
 class FavoritosPage extends StatefulWidget {
   final String title;
-  const FavoritosPage({Key key, this.title = "Favoritos"}) : super(key: key);
+  const FavoritosPage({Key? key, this.title = "Favoritos"}) : super(key: key);
 
   @override
   _FavoritosPageState createState() => _FavoritosPageState();
@@ -125,7 +125,7 @@ class _FavoritosPageState
                             child: Row(
                               children: [
                                 Container(
-                                  color: Theme.of(context).accentColor,
+                                  color: Theme.of(context).colorScheme.secondary,
                                   height: 80,
                                   width: 80,
                                 ),

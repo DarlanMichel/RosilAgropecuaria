@@ -14,8 +14,8 @@ class ClienteRepository implements IClienteRepository {
   ClienteRepository(this.firestore, this.auth);
 
   @override
-  Stream<List<ClienteModel>> getCliente({User firebaseUser}) {
-    final User currentUser = firebaseUser ?? auth.currentUser;
+  Stream<List<ClienteModel>>? getCliente({User? firebaseUser}) {
+    final User? currentUser = firebaseUser ?? auth.currentUser;
     if (currentUser != null) {
       return firestore.collection('users').snapshots().map((query) {
         return query.docs.map((doc) {
@@ -31,7 +31,7 @@ class ClienteRepository implements IClienteRepository {
   void dispose() {}
 
   @override
-  Future<List<ClienteModel>> insertClient(String id, String email) {
+  Future<void> insertClient(String id, String email) {
     return firestore
         .collection('users')
         .doc(id)

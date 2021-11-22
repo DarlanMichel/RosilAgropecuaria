@@ -22,13 +22,13 @@ mixin _$CadEndController on _CadEndControllerBase, Store {
   final _$ruaAtom = Atom(name: '_CadEndControllerBase.rua');
 
   @override
-  String get rua {
+  String? get rua {
     _$ruaAtom.reportRead();
     return super.rua;
   }
 
   @override
-  set rua(String value) {
+  set rua(String? value) {
     _$ruaAtom.reportWrite(value, super.rua, () {
       super.rua = value;
     });
@@ -37,13 +37,13 @@ mixin _$CadEndController on _CadEndControllerBase, Store {
   final _$numeroAtom = Atom(name: '_CadEndControllerBase.numero');
 
   @override
-  String get numero {
+  String? get numero {
     _$numeroAtom.reportRead();
     return super.numero;
   }
 
   @override
-  set numero(String value) {
+  set numero(String? value) {
     _$numeroAtom.reportWrite(value, super.numero, () {
       super.numero = value;
     });
@@ -52,13 +52,13 @@ mixin _$CadEndController on _CadEndControllerBase, Store {
   final _$complementoAtom = Atom(name: '_CadEndControllerBase.complemento');
 
   @override
-  String get complemento {
+  String? get complemento {
     _$complementoAtom.reportRead();
     return super.complemento;
   }
 
   @override
-  set complemento(String value) {
+  set complemento(String? value) {
     _$complementoAtom.reportWrite(value, super.complemento, () {
       super.complemento = value;
     });
@@ -67,13 +67,13 @@ mixin _$CadEndController on _CadEndControllerBase, Store {
   final _$bairroAtom = Atom(name: '_CadEndControllerBase.bairro');
 
   @override
-  String get bairro {
+  String? get bairro {
     _$bairroAtom.reportRead();
     return super.bairro;
   }
 
   @override
-  set bairro(String value) {
+  set bairro(String? value) {
     _$bairroAtom.reportWrite(value, super.bairro, () {
       super.bairro = value;
     });
@@ -82,13 +82,13 @@ mixin _$CadEndController on _CadEndControllerBase, Store {
   final _$referenciaAtom = Atom(name: '_CadEndControllerBase.referencia');
 
   @override
-  String get referencia {
+  String? get referencia {
     _$referenciaAtom.reportRead();
     return super.referencia;
   }
 
   @override
-  set referencia(String value) {
+  set referencia(String? value) {
     _$referenciaAtom.reportWrite(value, super.referencia, () {
       super.referencia = value;
     });
@@ -97,13 +97,13 @@ mixin _$CadEndController on _CadEndControllerBase, Store {
   final _$cidadeAtom = Atom(name: '_CadEndControllerBase.cidade');
 
   @override
-  String get cidade {
+  String? get cidade {
     _$cidadeAtom.reportRead();
     return super.cidade;
   }
 
   @override
-  set cidade(String value) {
+  set cidade(String? value) {
     _$cidadeAtom.reportWrite(value, super.cidade, () {
       super.cidade = value;
     });
@@ -112,13 +112,13 @@ mixin _$CadEndController on _CadEndControllerBase, Store {
   final _$ufAtom = Atom(name: '_CadEndControllerBase.uf');
 
   @override
-  String get uf {
+  String? get uf {
     _$ufAtom.reportRead();
     return super.uf;
   }
 
   @override
-  set uf(String value) {
+  set uf(String? value) {
     _$ufAtom.reportWrite(value, super.uf, () {
       super.uf = value;
     });
@@ -127,13 +127,13 @@ mixin _$CadEndController on _CadEndControllerBase, Store {
   final _$descricaoAtom = Atom(name: '_CadEndControllerBase.descricao');
 
   @override
-  String get descricao {
+  String? get descricao {
     _$descricaoAtom.reportRead();
     return super.descricao;
   }
 
   @override
-  set descricao(String value) {
+  set descricao(String? value) {
     _$descricaoAtom.reportWrite(value, super.descricao, () {
       super.descricao = value;
     });
@@ -142,13 +142,13 @@ mixin _$CadEndController on _CadEndControllerBase, Store {
   final _$cepAtom = Atom(name: '_CadEndControllerBase.cep');
 
   @override
-  String get cep {
+  String? get cep {
     _$cepAtom.reportRead();
     return super.cep;
   }
 
   @override
-  set cep(String value) {
+  set cep(String? value) {
     _$cepAtom.reportWrite(value, super.cep, () {
       super.cep = value;
     });

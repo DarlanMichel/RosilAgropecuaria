@@ -4,7 +4,7 @@ import 'pedidos_controller.dart';
 
 class PedidosPage extends StatefulWidget {
   final String title;
-  const PedidosPage({Key key, this.title = "Pedidos"}) : super(key: key);
+  const PedidosPage({Key? key, this.title = "Pedidos"}) : super(key: key);
 
   @override
   _PedidosPageState createState() => _PedidosPageState();
@@ -105,7 +105,7 @@ class _PedidosPageState extends ModularState<PedidosPage, PedidosController> {
     Widget child;
 
     if(status < thisStatus){
-      backColor = Colors.grey[500];
+      backColor = Colors.grey[500]!;
       child = Text(title, style: TextStyle(color: Colors.white),);
     }else if(status == thisStatus){
       backColor = Colors.blue;

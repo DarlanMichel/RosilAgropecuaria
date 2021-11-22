@@ -4,7 +4,7 @@ import 'minha_conta_controller.dart';
 
 class MinhaContaPage extends StatefulWidget {
   final String title;
-  const MinhaContaPage({Key key, this.title = "MinhaConta"}) : super(key: key);
+  const MinhaContaPage({Key? key, this.title = "MinhaConta"}) : super(key: key);
 
   @override
   _MinhaContaPageState createState() => _MinhaContaPageState();

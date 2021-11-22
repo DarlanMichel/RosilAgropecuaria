@@ -22,13 +22,13 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   final _$listEndAtom = Atom(name: '_EnderecoControllerBase.listEnd');
 
   @override
-  ObservableStream<List<EnderecoModel>> get listEnd {
+  ObservableStream<List<EnderecoModel>>? get listEnd {
     _$listEndAtom.reportRead();
     return super.listEnd;
   }
 
   @override
-  set listEnd(ObservableStream<List<EnderecoModel>> value) {
+  set listEnd(ObservableStream<List<EnderecoModel>>? value) {
     _$listEndAtom.reportWrite(value, super.listEnd, () {
       super.listEnd = value;
     });
@@ -37,13 +37,13 @@ mixin _$EnderecoController on _EnderecoControllerBase, Store {
   final _$modelAtom = Atom(name: '_EnderecoControllerBase.model');
 
   @override
-  EnderecoModel get model {
+  EnderecoModel? get model {
     _$modelAtom.reportRead();
     return super.model;
   }
 
   @override
-  set model(EnderecoModel value) {
+  set model(EnderecoModel? value) {
     _$modelAtom.reportWrite(value, super.model, () {
       super.model = value;
     });

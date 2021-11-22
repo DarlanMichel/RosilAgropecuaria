@@ -42,18 +42,18 @@ abstract class _LoginControllerBase with Store {
   void setLoading(bool _loading) => loading = _loading;
 
   @action
-  Future<void> signIn({Function onFail, Function onSuccess}) async {
+  Future<void> signIn({Function? onFail, Function? onSuccess}) async {
     setLoading(true);
     try {
-      final User user =
+      final User? user =
           (await auth.signInWithEmailAndPassword(email: email, password: senha))
               .user;
 
-      _repository.getCliente(firebaseUser: user);
+      _repository.getCliente(firebaseUser: user!);
 
-      onSuccess();
+      onSuccess!();
     } on FirebaseAuthException catch (e) {
-      onFail(getErrorString(e.code));
+      onFail!(getErrorString(e.code));
     }
     setLoading(false);
   }

@@ -6,23 +6,23 @@ class EnderecoModel {
   String cep;
   String bairro;
   String cidade;
-  String complemento;
+  String? complemento;
   String numero;
-  String referencia;
+  String? referencia;
   String rua;
   String uf;
 
   EnderecoModel(
-      {this.id,
-      this.descricao,
-      this.cep,
-      this.bairro,
-      this.cidade,
+      {required this.id,
+      required this.descricao,
+      required this.cep,
+      required this.bairro,
+      required this.cidade,
       this.complemento,
-      this.numero,
+      required this.numero,
       this.referencia,
-      this.rua,
-      this.uf});
+      required this.rua,
+      required this.uf});
 
   factory EnderecoModel.fromDocument(DocumentSnapshot doc) {
     return EnderecoModel(

@@ -8,7 +8,7 @@ import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-  const HomePage({Key key, this.title = "Home"}) : super(key: key);
+  const HomePage({Key? key, this.title = "Home"}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -148,7 +148,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     return Center(child: CircularProgressIndicator());
                   }
 
-                  List<CategoriaModel> listCat = controller.categoriaList;
+                  List<CategoriaModel> listCat = controller.categoriaList!;
 
                   return ListView.builder(
                       padding: EdgeInsets.all(8.0),
@@ -223,7 +223,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     return Center(child: CircularProgressIndicator());
                   }
 
-                  List<ProdutoModel> listProd = controller.produtoList;
+                  List<ProdutoModel> listProd = controller.produtoList!;
 
                   return ListView.builder(
                       padding: EdgeInsets.all(8.0),
@@ -246,7 +246,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                                       width: 70,
                                       child: Image.network(prodModel.foto == ''
                                           ? 'https://www.freeiconspng.com/uploads/no-image-icon-4.png'
-                                          : prodModel.foto),
+                                          : prodModel.foto!),
                                     ),
                                     SizedBox(
                                       height: 10,

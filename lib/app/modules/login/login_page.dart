@@ -8,7 +8,7 @@ import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   final String title;
-  const LoginPage({Key key, this.title = "Login"}) : super(key: key);
+  const LoginPage({Key? key, this.title = "Login"}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -80,7 +80,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                         keyboardType: TextInputType.emailAddress,
                         autocorrect: false,
                         validator: (email) {
-                          if (!emailValid(email)) return 'E-mail inválido';
+                          if (!emailValid(email!)) return 'E-mail inválido';
                           return null;
                         },
                         onChanged: controller.setEmail,
@@ -97,7 +97,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                         decoration: InputDecoration(
                             hintText: '****', labelText: 'Senha'),
                         validator: (pass) {
-                          if (pass.isEmpty || pass.length < 6)
+                          if (pass!.isEmpty || pass.length < 6)
                             return 'Senha inválida';
                           return null;
                         },
@@ -128,7 +128,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                             onPressed: controller.loading
                                 ? null
                                 : () {
-                                    if (formKey.currentState.validate()) {
+                                    if (formKey.currentState!.validate()) {
                                       controller.signIn(
                                           onFail: (e) {
                                             ScaffoldMessenger.of(context)

@@ -5,8 +5,8 @@ import 'cad_end_controller.dart';
 
 class CadEndPage extends StatefulWidget {
   final String title;
-  final EnderecoModel model;
-  const CadEndPage({Key key, this.title = "CadEnd", this.model})
+  final EnderecoModel? model;
+  const CadEndPage({Key? key, this.title = "CadEnd", this.model})
       : super(key: key);
 
   @override
@@ -335,26 +335,26 @@ class _CadEndPageState extends ModularState<CadEndPage, CadEndController> {
                     onPressed: () {
                       if (widget.model == null) {
                         controller.insertEndereco(
-                            controller.bairro,
-                            controller.cep,
-                            controller.cidade,
-                            controller.complemento,
-                            controller.descricao,
-                            controller.uf,
-                            controller.numero,
-                            controller.referencia,
-                            controller.rua);
+                            controller.bairro!,
+                            controller.cep!,
+                            controller.cidade!,
+                            controller.complemento!,
+                            controller.descricao!,
+                            controller.uf!,
+                            controller.numero!,
+                            controller.referencia!,
+                            controller.rua!);
                       } else {
-                        widget.model.bairro = controller.bairro;
-                        widget.model.cep = controller.cep;
-                        widget.model.cidade = controller.cidade;
-                        widget.model.complemento = controller.complemento;
-                        widget.model.descricao = controller.descricao;
-                        widget.model.uf = controller.uf;
-                        widget.model.numero = controller.numero;
-                        widget.model.referencia = controller.referencia;
-                        widget.model.rua = controller.rua;
-                        controller.updateEndereco(widget.model);
+                        widget.model?.bairro = controller.bairro!;
+                        widget.model?.cep = controller.cep!;
+                        widget.model?.cidade = controller.cidade!;
+                        widget.model?.complemento = controller.complemento;
+                        widget.model?.descricao = controller.descricao!;
+                        widget.model?.uf = controller.uf!;
+                        widget.model?.numero = controller.numero!;
+                        widget.model?.referencia = controller.referencia;
+                        widget.model?.rua = controller.rua!;
+                        controller.updateEndereco(widget.model!);
                       }
                       Modular.to.pop();
                     },

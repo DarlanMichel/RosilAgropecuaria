@@ -6,8 +6,8 @@ import 'produtos_controller.dart';
 
 class ProdutosPage extends StatefulWidget {
   final String title;
-  final String categoria;
-  const ProdutosPage({Key key, this.title = "Produtos", this.categoria}) : super(key: key);
+  final String? categoria;
+  const ProdutosPage({Key? key, this.title = "Produtos", this.categoria}) : super(key: key);
 
   @override
   _ProdutosPageState createState() => _ProdutosPageState();
@@ -116,7 +116,7 @@ class _ProdutosPageState
                   return Center(child: CircularProgressIndicator());
                 }
 
-                List<ProdutoModel> listProd = controller.prodList;
+                List<ProdutoModel> listProd = controller.prodList!;
 
                 return ListView.builder(
                     padding: EdgeInsets.all(8.0),
@@ -140,7 +140,7 @@ class _ProdutosPageState
                                     width: 100,
                                     child: Image.network(model.foto == ''
                                         ? 'https://www.freeiconspng.com/uploads/no-image-icon-4.png'
-                                        : model.foto),
+                                        : model.foto!),
                                   ),
                                   Expanded(
                                     child: Column(

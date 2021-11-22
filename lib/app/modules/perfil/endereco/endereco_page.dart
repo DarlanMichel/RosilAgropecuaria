@@ -6,7 +6,7 @@ import 'endereco_controller.dart';
 
 class EnderecoPage extends StatefulWidget {
   final String title;
-  const EnderecoPage({Key key, this.title = "Endereco"}) : super(key: key);
+  const EnderecoPage({Key? key, this.title = "Endereco"}) : super(key: key);
 
   @override
   _EnderecoPageState createState() => _EnderecoPageState();
@@ -22,7 +22,7 @@ class _EnderecoPageState
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      primary: Theme.of(context).accentColor,
+      primary: Theme.of(context).colorScheme.secondary,
     );
 
     return SafeArea(
@@ -45,7 +45,7 @@ class _EnderecoPageState
                       return Center(child: Text("Nenhum endereço cadastrado!"));
                     }
 
-                    List<EnderecoModel> listEnde = controller.listEnd.value;
+                    List<EnderecoModel> listEnde = controller.listEnd?.value ?? [];
 
                     return ListView.builder(
                       itemCount: listEnde.length,
@@ -120,9 +120,9 @@ class _EnderecoPageState
                                         ),
                                       ),
                                       Text(
-                                        model.complemento +
+                                        model.complemento! +
                                             ' - ' +
-                                            model.referencia,
+                                            model.referencia!,
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: Theme.of(context).primaryColor,

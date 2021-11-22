@@ -4,7 +4,7 @@ import 'sobre_controller.dart';
 
 class SobrePage extends StatefulWidget {
   final String title;
-  const SobrePage({Key key, this.title = "Sobre"}) : super(key: key);
+  const SobrePage({Key? key, this.title = "Sobre"}) : super(key: key);
 
   @override
   _SobrePageState createState() => _SobrePageState();

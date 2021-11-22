@@ -30,21 +30,21 @@ scripts:
 
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.14.4 <3.0.0"
 
 dependencies:
-  dio: ^4.0.0
-  flutter_mobx: ^2.0.0
-  mobx: ^2.0.0
-  flutter_modular: ^3.0.2+1
-  firebase_auth: ^1.0.1
-  firebase_auth_web: ^1.0.3
-  cloud_firestore: ^1.0.3
-  firebase_messaging: ^9.1.0
-  firebase_core: ^1.0.2
-  shared_preferences: ^2.0.5
+  dio: ^4.0.3
+  flutter_mobx: ^2.0.2
+  mobx: ^2.0.5
+  flutter_modular: ^4.2.0
+  firebase_auth: ^3.2.0
+  firebase_auth_web: ^3.2.0
+  cloud_firestore: ^3.1.0
+  firebase_messaging: ^11.1.0
+  firebase_core: ^1.10.0
+  shared_preferences: ^2.0.9
   search_cep: ^4.0.0-nullsafety.0
-  http: ^0.13.1
+  http: ^0.13.4
   http_parser: ^4.0.0
   flutter:
     sdk: flutter
@@ -54,10 +54,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
 
 dev_dependencies:
-  mockito: ^5.0.3
-  modular_codegen: ^3.0.0
-  mobx_codegen: ^2.0.0
-  build_runner: ^1.12.2
+  mockito: ^5.0.16
+  modular_codegen: ^3.0.3
+  mobx_codegen: ^2.0.4
+  build_runner: ^2.1.5
   flutter_test:
     sdk: flutter
 

@@ -3,7 +3,6 @@ import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/firebase_errors.dart';
 import 'package:rosilagropecuaria/app/modules/repositories/cliente_repository.dart';
-import 'package:rosilagropecuaria/app/modules/repositories/interfaces/cliente_repository_inteface.dart';
 
 part 'cadastro_controller.g.dart';
 
@@ -41,25 +40,25 @@ abstract class _CadastroControllerBase with Store {
   void setLoading(bool _loading) => loading = _loading;
 
   @observable
-  String id;
+  String id = '';
 
   @action
-  Future<void> signUp({Function onFail, Function onSuccess}) async {
+  Future<void> signUp({Function? onFail, Function? onSuccess}) async {
     setLoading(true);
     try {
       final FirebaseAuth _auth = FirebaseAuth.instance;
 
-      final User user = (await _auth.createUserWithEmailAndPassword(
+      final User? user = (await _auth.createUserWithEmailAndPassword(
               email: email, password: senha))
           .user;
 
-      id = user.uid;
+      id = user!.uid;
 
       await _repository.insertClient(id, email);
 
-      onSuccess();
+      onSuccess!();
     } on FirebaseAuthException catch (e) {
-      onFail(getErrorString(e.code));
+      onFail!(getErrorString(e.code));
     }
     setLoading(false);
   }

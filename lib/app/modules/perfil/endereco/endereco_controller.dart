@@ -16,7 +16,7 @@ abstract class _EnderecoControllerBase with Store {
   }
 
   @observable
-  ObservableStream<List<EnderecoModel>> listEnd;
+  ObservableStream<List<EnderecoModel>>? listEnd;
 
   @action
   getEndereco() {
@@ -31,7 +31,7 @@ abstract class _EnderecoControllerBase with Store {
   List<String> opEnd = ["Editar", "Excluir"];
 
   @observable
-  EnderecoModel model;
+  EnderecoModel? model;
 
   @action
   selecOption(String _op) async {
@@ -40,7 +40,7 @@ abstract class _EnderecoControllerBase with Store {
         Modular.to.pushNamed('/cadend', arguments: model);
         break;
       case "Excluir":
-        deleteEndereco(model.id);
+        deleteEndereco(model!.id);
         break;
     }
   }

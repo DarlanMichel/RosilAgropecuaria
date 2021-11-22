@@ -22,13 +22,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$categoriaListAtom = Atom(name: '_HomeControllerBase.categoriaList');
 
   @override
-  List<CategoriaModel> get categoriaList {
+  List<CategoriaModel>? get categoriaList {
     _$categoriaListAtom.reportRead();
     return super.categoriaList;
   }
 
   @override
-  set categoriaList(List<CategoriaModel> value) {
+  set categoriaList(List<CategoriaModel>? value) {
     _$categoriaListAtom.reportWrite(value, super.categoriaList, () {
       super.categoriaList = value;
     });
@@ -37,13 +37,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$produtoListAtom = Atom(name: '_HomeControllerBase.produtoList');
 
   @override
-  List<ProdutoModel> get produtoList {
+  List<ProdutoModel>? get produtoList {
     _$produtoListAtom.reportRead();
     return super.produtoList;
   }
 
   @override
-  set produtoList(List<ProdutoModel> value) {
+  set produtoList(List<ProdutoModel>? value) {
     _$produtoListAtom.reportWrite(value, super.produtoList, () {
       super.produtoList = value;
     });

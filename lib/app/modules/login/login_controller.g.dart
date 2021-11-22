@@ -97,7 +97,7 @@ mixin _$LoginController on _LoginControllerBase, Store {
   final _$signInAsyncAction = AsyncAction('_LoginControllerBase.signIn');
 
   @override
-  Future<void> signIn({Function onFail, Function onSuccess}) {
+  Future<void> signIn({Function? onFail, Function? onSuccess}) {
     return _$signInAsyncAction
         .run(() => super.signIn(onFail: onFail, onSuccess: onSuccess));
   }
