@@ -4,7 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'login_controller.dart';
+import '../controllers/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   final String title;
@@ -73,7 +73,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                           const EdgeInsets.only(right: 30, left: 30, top: 10),
                       child: TextFormField(
                         controller: emailController,
-                        enabled: !controller.loading,
                         decoration: InputDecoration(
                             hintText: 'seuemail@email.com',
                             labelText: 'E-mail'),
@@ -92,7 +91,6 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                       child: TextFormField(
                         obscureText: true,
                         controller: passController,
-                        enabled: !controller.loading,
                         autocorrect: false,
                         decoration: InputDecoration(
                             hintText: '****', labelText: 'Senha'),
@@ -101,7 +99,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                             return 'Senha inválida';
                           return null;
                         },
-                        onChanged: controller.setSenha,
+                        onChanged: controller.setPassword,
                       ),
                     ),
                     Align(
@@ -123,48 +121,20 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                         width: 250,
                         height: 55,
                         padding: EdgeInsets.only(right: 30),
-                        child: ElevatedButton(
-                            style: buttonStyle,
-                            onPressed: controller.loading
-                                ? null
-                                : () {
-                                    if (formKey.currentState!.validate()) {
-                                      controller.signIn(
-                                          onFail: (e) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              content:
-                                                  Text('Falha ao entrar: $e'),
-                                              backgroundColor: Colors.red,
-                                              duration:
-                                                  const Duration(seconds: 5),
-                                            ));
-                                          },
-                                          onSuccess: () async {
-                                            SharedPreferences shared =
-                                                await SharedPreferences
-                                                    .getInstance();
-                                            shared.setString('email',
-                                                '${emailController.text}');
-                                            Modular.to
-                                                .pushReplacementNamed('/home');
-                                          });
-                                    }
-                                  },
-                            child: Observer(
-                              builder: (_) {
-                                return controller.loading
-                                    ? CircularProgressIndicator(
-                                        valueColor: AlwaysStoppedAnimation(
-                                            Colors.white),
-                                      )
-                                    : Text(
-                                        "Entrar",
-                                        style: TextStyle(
-                                            fontSize: 18, color: Colors.white),
-                                      );
-                              },
-                            )),
+                        child: Observer(
+                          builder: (context) {
+                            return ElevatedButton(
+                                style: buttonStyle,
+                                onPressed: controller.isValid
+                                    ? controller.enterEmail
+                                    : null,
+                                child: Text(
+                                  "Entrar",
+                                  style:
+                                      TextStyle(fontSize: 18, color: Colors.white),
+                                ));
+                          }
+                        ),
                       ),
                     ),
                     Align(
@@ -179,7 +149,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                                 color: Theme.of(context).primaryColor),
                           ),
                           onTap: () {
-                            Modular.to.pushNamed('/cadastro');
+                            Modular.to.pushNamed('/register/');
                           },
                         ),
                       ),

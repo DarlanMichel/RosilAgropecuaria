@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  SharedPreferences shared = await SharedPreferences.getInstance();
-  //var email = shared.getString('email');
-  runApp(ModularApp(module: AppModule(shared), child: AppWidget()));
+  //SharedPreferences shared = await SharedPreferences.getInstance();
+  runApp(ModularApp(module: AppModule(), child: AppWidget()));
 }

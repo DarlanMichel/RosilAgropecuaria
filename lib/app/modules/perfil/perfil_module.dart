@@ -1,4 +1,4 @@
-import 'package:rosilagropecuaria/app/modules/login/login_controller.dart';
+import 'package:rosilagropecuaria/app/modules/login/presenter/controllers/login_controller.dart';
 import 'package:rosilagropecuaria/app/modules/login/login_module.dart';
 import 'package:rosilagropecuaria/app/modules/perfil/minha_conta/minha_conta_controller.dart';
 import 'package:rosilagropecuaria/app/modules/perfil/sobre/sobre_controller.dart';

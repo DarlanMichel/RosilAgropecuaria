@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:asuka/asuka.dart' as asuka show builder;
 
 class AppWidget extends StatelessWidget {
   @override
@@ -15,14 +16,16 @@ class AppWidget extends StatelessWidget {
       primaryColorDark: Color.fromRGBO(206, 206, 216, 1),
       backgroundColor: Color.fromRGBO(233, 243, 253, 1.0),
     );
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Rosil Agropecuária',
       theme: theme.copyWith(
         colorScheme: theme.colorScheme
             .copyWith(secondary: Color.fromRGBO(101, 162, 188, 1)),
       ),
       debugShowCheckedModeBanner: false,
-      //initialRoute: '/',
-    ).modular();
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
+      builder: asuka.builder,
+    );
   }
 }

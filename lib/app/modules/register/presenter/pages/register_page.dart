@@ -3,19 +3,18 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:rosilagropecuaria/app/modules/helpers/validators.dart';
 import 'package:rosilagropecuaria/app/modules/model/cliente_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'cadastro_controller.dart';
+import 'package:rosilagropecuaria/app/modules/register/presenter/controllers/register_controller.dart';
 
-class CadastroPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final String title;
-  const CadastroPage({Key? key, this.title = "Cadastro"}) : super(key: key);
+  const RegisterPage({Key? key, this.title = "Cadastro"}) : super(key: key);
 
   @override
-  _CadastroPageState createState() => _CadastroPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _CadastroPageState
-    extends ModularState<CadastroPage, CadastroController> {
+class _RegisterPageState
+    extends ModularState<RegisterPage, RegisterController> {
   static final formKey = GlobalKey<FormState>();
 
   @override
@@ -76,7 +75,6 @@ class _CadastroPageState
                         decoration: InputDecoration(
                             hintText: 'seuemail@email.com',
                             labelText: 'E-mail'),
-                        enabled: !controller.loading,
                         keyboardType: TextInputType.emailAddress,
                         onChanged: controller.setEmail,
                         validator: (email) {
@@ -95,7 +93,6 @@ class _CadastroPageState
                         obscureText: true,
                         decoration: InputDecoration(
                             hintText: '****', labelText: 'Senha'),
-                        enabled: !controller.loading,
                         validator: (pass) {
                           if (pass!.isEmpty)
                             return 'Campo obrigatório';
@@ -112,7 +109,6 @@ class _CadastroPageState
                         obscureText: true,
                         decoration: InputDecoration(
                             hintText: '****', labelText: 'Repita a Senha'),
-                        enabled: !controller.loading,
                         validator: (pass) {
                           if (pass!.isEmpty)
                             return 'Campo obrigatório';
@@ -128,56 +124,20 @@ class _CadastroPageState
                         width: 250,
                         height: 55,
                         padding: EdgeInsets.only(right: 30),
-                        child: ElevatedButton(
-                          style: buttonStyle,
-                          onPressed: controller.loading
-                              ? null
-                              : () {
-                                  if (formKey.currentState!.validate()) {
-                                    formKey.currentState?.save();
-                                    if (controller.senha !=
-                                        controller.confirmaSenha) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                        content: Text('Senhas não coincidem!'),
-                                        backgroundColor: Colors.red,
-                                      ));
-                                      return;
-                                    }
-                                    controller.signUp(
-                                        onSuccess: () async{
-                                          SharedPreferences shared =
-                                                await SharedPreferences
-                                                    .getInstance();
-                                            shared.setString('email',
-                                                '${cliente.email}');
-                                          Modular.to
-                                              .pushReplacementNamed('/home');
-                                        },
-                                        onFail: (e) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content:
-                                                Text('Falha ao cadastrar: $e'),
-                                            backgroundColor: Colors.red,
-                                            duration:
-                                                const Duration(seconds: 5),
-                                          ));
-                                        });
-                                  }
-                                },
-                          child: Observer(builder: (_) {
-                            return controller.loading
-                                ? CircularProgressIndicator(
-                                    valueColor:
-                                        AlwaysStoppedAnimation(Colors.white),
-                                  )
-                                : Text(
-                                    "Cadastrar",
-                                    style: TextStyle(
-                                        fontSize: 18, color: Colors.white),
-                                  );
-                          }),
+                        child: Observer(
+                          builder: (context) {
+                            return ElevatedButton(
+                              style: buttonStyle,
+                              onPressed: controller.isValid
+                                  ? controller.enterRegister
+                                  : null,
+                              child: Text(
+                                        "Cadastrar",
+                                        style: TextStyle(
+                                            fontSize: 18, color: Colors.white),
+                                      ),
+                            );
+                          }
                         ),
                       ),
                     ),
